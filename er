@@ -1,0 +1,72 @@
+[33mb4839e3[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m, [m[1;31morigin/feature/v3.0.0[m[33m, [m[1;31morigin/HEAD[m[33m)[m Readme Update: Deleted Creative Tim Cyber Monday Limited Offer
+[33ma3117db[m Readme Update: Added Creative Tim Cyber Monday Limited Offer
+[33mc148b8c[m Readme Update: Delete Creative Tim Black Friday Limited Offer
+[33mb913f32[m Readme Update: added Creative Tim Black Friday Limited Offer
+[33me749c2e[m[33m ([m[1;33mtag: v2.1.0[m[33m)[m Merge pull request #54 from creativetimofficial/feature/v2.1.0
+[33m4d0a749[m[33m ([m[1;31morigin/feature/v2.1.0[m[33m)[m refactor(changelog): change latest update comment
+[33ma543fad[m Merge pull request #53 from creativetimofficial/feature/v2.1.0
+[33m90bf582[m feat: drawer image size change
+[33m3742f54[m refactor(Upgrade): link repair
+[33m3d42d99[m feat: v2.1.0
+[33m2a3ea65[m[33m ([m[1;31morigin/feature/v1.0.0[m[33m)[m chore(deps-dev): bump axios from 0.17.1 to 0.19.0
+[33m6c3e53f[m chore(deps-dev): bump axios from 0.17.1 to 0.19.0
+[33m57dc73c[m chore: correct spelling of variable name
+[33m3ddf53d[m feat: add copyrights
+[33md89a0ce[m feat: restore master to v1.0.0
+[33m57453dd[m[33m ([m[1;31morigin/v2.0.0[m[33m)[m added changelog
+[33m312fc66[m[33m ([m[1;33mtag: v2.0.0[m[33m)[m updated readme
+[33mf89ca34[m updated readme
+[33mb1ba8f0[m added issue template + license md
+[33mfb9c46a[m upgrade btn removed disabled + package json renamed "serve" to "dev"
+[33m954b545[m added new version to package.json
+[33m86452c7[m feat: update to vuetify@2
+[33m4394c2c[m added issue template
+[33m06a3650[m added license
+[33md4cb9e9[m added copyright
+[33mac5510f[m added copyright
+[33m8977a27[m vuetify updated
+[33m426d2e5[m Merge branch 'master' of https://github.com/creativetimofficial/vuetify-material-dashboard
+[33m26602ce[m Merge pull request #28 from gustawdaniel/master
+[33mc8bb473[m Fixed moderate severity vulnerability (axios)
+[33mdde59e9[m Merge pull request #21 from AmirrezaNasiri/master
+[33mc473191[m Fix #8: Navigation drawer is not scroll-able
+[33m8965f7b[m Rename variable from resovle to resolve
+[33m728f73e[m Update README.md
+[33mce9e677[m icon tabs color fixed for v1.0.1
+[33mf39cbc0[m added product gif + added gif in readme
+[33m157d3af[m added product gif
+[33mc396312[m readme update
+[33m1fb0180[m readme update
+[33me7fdc87[m changes on responsive + add static toolbar
+[33m49f4163[m lint
+[33mf81548b[m changes for responsive
+[33m1b7eb06[m changed footer home button link
+[33mbd1c481[m chagned path and redirect path
+[33mdcdcfd5[m changed favicon + changed drawer logo image
+[33mbce39ff[m ignore lock.json
+[33m9a45648[m Merge branch 'master' of https://github.com/creativetimofficial/vuetify-material-dashboard
+[33m05cd9d8[m Initial commit
+[33m177f10c[m filter plugin added round attr on btn's + added pointer cursor on btn's
+[33me7fa192[m btn icon small change
+[33m5a5d5ee[m btn icon small change
+[33m5c2c185[m added links to filter plugin + renamed 'start' to 'dev' in package.json
+[33mc41f6d9[m changes
+[33m35479eb[m finished restyle
+[33m3a5ddbc[m feat(styles): add entry for custom scss
+[33m18cb583[m feat(filter): add social buttons
+[33mfa29df6[m feat(filter): add filter component
+[33mf12684d[m feat(material-card): add title and text props
+[33mdbcccea[m feat(upgrade): create upgrade page
+[33m9e9d362[m fix(packages): added missing package
+[33me54f605[m feat(upgrade-button): added button
+[33mc5a88c1[m feat(dashboard): finish components
+[33m0f037d7[m feat(chart-card): new component
+[33m332a24a[m feat(notifications): populate page
+[33m4c25c82[m feat(maps): populate maps content
+[33mb783e9a[m feat(icons): populate icons page
+[33m4dd635c[m feat(typography): add page content
+[33m8f8aed6[m feat(table-list): populate page
+[33m7332f23[m feat(user-profile): add user profile page
+[33mff39bcc[m feat(app): complete initial structure
+[33m4fa9c3a[m feat(app): init commit
+[33m6cac8ce[m init
