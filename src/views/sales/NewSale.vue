@@ -123,9 +123,8 @@
               <h3>SUBTOTAL: {{ sumField("priceT") }}</h3>
               <h3>IVA(13%): {{iva("priceT")}}</h3>
               <h2 class="red lighten-3">TOTAL: {{totalVenta("priceT")}}</h2>
-              <!-- <H1>Massage:{{usuario._id}}</H1> -->
-              
-             
+           
+                          
             </v-col>
           </v-row>
         </base-material-card>
@@ -183,10 +182,13 @@
   </v-container>
 </template>
 <script>
+import axios from "axios";
+import {mapGetters} from 'vuex'
 let url = "http://localhost:8000/api/dventas"
 let urlv = "http://localhost:8000/api/ventas"
+
 //import easyinvoice from 'easyinvoice';
-import axios from "axios";
+
 export default {
   
   name: "NewSale",
@@ -291,7 +293,7 @@ export default {
     procesarVenta() {
       //VENTAS
         // let param = {idClient:this.bclientes._id, idUser:user._id}
-        let param = {idClient:this.bclientes._id, idUser:'612ab0240dd20217141dd7cb', fecha: new Date(), estado:'PAGADO', totalFactura: this.sumField("priceT") }
+        let param = {idClient:this.bclientes._id, idUser:this.user._id, fecha: new Date(), estado:'PAGADO', totalFactura: this.sumField("priceT") }
         //console.log(nombre)
         //console.log(param)
         axios.post(urlv, param)
@@ -437,5 +439,8 @@ export default {
         });
     },
   },
+         computed:{
+          ...mapGetters(['user'])
+        }
 };
 </script>

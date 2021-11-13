@@ -41,22 +41,13 @@
 <script>
     import axios from 'axios'
     import {mapGetters} from 'vuex'
-    import NewSale from '../views/sales/NewSale.vue'
     export default{
-        //props: [user._idNewSale], //PASAMOS user._id a nueva venta para desde ahi enviarlo a nuestro backend
         name: 'Nav',
-        // data(){
-        //   return{
-        //     massage: 'hola'
-        //   }
-        // },
-        // components:{
-        //   NewSale
-        // },
+
         methods:{ 
             handleClick(){
               localStorage.removeItem('token')
-              //this.$store.dispatch('user', null)
+              this.$store.dispatch('user', null)
               axios.post('logout')
                   .then(response =>{
 

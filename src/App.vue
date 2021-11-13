@@ -2,7 +2,7 @@
   <div id="app">
     <Nav />
     
-            <router-view :usuario="user"/> 
+            <router-view /> 
    
   </div>
 
@@ -27,9 +27,10 @@
 
     },
 
+//Hacemos la autenticacion cuando carga el componente principal Muy Importante !
      async created(){
-         const response = await axios.get('user')
 
+         const response = await axios.get('user')
           this.$store.dispatch('user', response.data)  
      }
   }

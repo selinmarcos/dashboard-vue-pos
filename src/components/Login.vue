@@ -35,23 +35,29 @@
       
         },
         methods:{
+                //nos logeamos es decir creamos el token 
                async handleSubmit(){
-                   const response = await axios.post('login',{
+                   const respons = await axios.post('login',{
                     email: this.email,
                     pass: this.pass,
 
                 })
           
-                 //console.log('TOKEEEEEN GUARDADO:  '+response.data.token)
-                 localStorage.setItem('token', response.data.token)
-                 //console.log(response.data.user.name)
-                       //console.log(response.data.user)
-            
+                 console.log('TOKEEEEEN GUARDADO:  '+respons.data.token)
+                 localStorage.setItem('token', respons.data.token)
+                
+                //nos conectamos a user para hacer la autenticacion (si no no aparece el user en el nav)
+                const response = await axios.get('user')
+                console.log('EJECUTADO')
+                this.$store.dispatch('user', response.data) 
+                
+                
                 //this.$store.dispatch('user', reponse.data.user) 
                 //this.$store.commit("user", reponse.data.user)
-                //   console.log(response.data.user)
-                // console.log(this.$store.dispatch('user', response.data.user))
                 this.$router.push('/dash')
+                //console.log(response.data.user)
+                // console.log(this.$store.dispatch('user', response.data.user))
+                
              
               
 

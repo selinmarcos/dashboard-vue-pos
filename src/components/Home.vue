@@ -42,7 +42,7 @@
     name: 'Home',
     computed:{
         ...mapGetters(['user'])
-    }
+    },
    
  }
 </script>
