@@ -3,6 +3,7 @@
     <!-- <div id='account-info'>
    {{username}}
     </div> -->
+    <form v-on:submit.prevent="procesarVenta()">
     <v-row>
       <!--DATOS DEL CLIENTE-->
       <v-col cols="6" md="4">
@@ -21,11 +22,11 @@
             </v-row>
           </template>
           <!-- previene que se recargue la pagina -->
-          <form v-on:submit.prevent="guardarArticulo()">
+          
             <v-row>
               <v-col cols="12">
-                <v-text-field
-                  v-model="nit"
+                <v-text-field 
+                  v-model="bclientes.nit"
                   @keyup="buscarCliente()"
                   label="NIT"
                   outlined
@@ -33,7 +34,7 @@
                 ></v-text-field>
               </v-col>
               <v-col cols="12">
-                <v-text-field
+                <v-text-field id="nameUsuario"
                   label="Nombre"
                   v-model="bclientes.nombre"
                   outlined
@@ -41,7 +42,7 @@
                 ></v-text-field>
               </v-col>
               <v-col cols="6">
-                <v-text-field
+                <v-text-field id="telefonoUsuario"
                   v-model="bclientes.telefono"
                   label="TELEFONO"
                   outlined
@@ -49,7 +50,7 @@
                 ></v-text-field>
               </v-col>
               <v-col cols="6">
-                <v-text-field
+                <v-text-field id="direccionUsuario"
                   v-model="bclientes.direccion"
                   label="DIRECCION"
                   outlined
@@ -58,13 +59,13 @@
               </v-col>
             </v-row>
 
-            <v-card-actions>
+            <!-- <v-card-actions>
               <v-btn to="/articulos" color="blue-gray" class="mr-4"
                 >Cancelar</v-btn
               >
               <v-btn type="submit" color="indigo" class="mr-4">Guardar</v-btn>
-            </v-card-actions>
-          </form>
+            </v-card-actions> -->
+         
         </base-material-card>
       </v-col>
 
@@ -115,22 +116,22 @@
             </template>
           </v-data-table>
           <v-row>
-            <v-col>
-              <br />
-              <v-btn color="blue-grey darken-4" @click="procesarVenta()">PROCESAR</v-btn>
-            </v-col>
+
             <v-col>
               <h3>SUBTOTAL: {{ sumField("priceT") }}</h3>
               <h3>IVA(13%): {{iva("priceT")}}</h3>
-              <h2 class="red lighten-3">TOTAL: {{totalVenta("priceT")}}</h2>
-           
-                          
+              <h2 class="red lighten-3">TOTAL: {{totalVenta("priceT")}}</h2>            
+            </v-col>
+
+            <v-col>
+              <br />
+              <v-btn type="submit" color="blue-grey darken-4" >PROCESAR</v-btn>
             </v-col>
           </v-row>
         </base-material-card>
       </v-col>
     </v-row>
-
+ </form>
     <v-row>
       <v-col cols="12">
         <base-material-card class="px-5 py-3">
@@ -184,7 +185,7 @@
 <script>
 import axios from "axios";
 import {mapGetters} from 'vuex'
-let url = "http://localhost:8000/api/dventas"
+let urldv = "http://localhost:8000/api/dventas"
 let urlv = "http://localhost:8000/api/ventas"
 
 //import easyinvoice from 'easyinvoice';
@@ -202,6 +203,7 @@ export default {
       selected: [],
 
       bclientes: {
+        
         nombre: "",
         nit: "",
         telefono: "",
@@ -291,11 +293,54 @@ export default {
 
   methods: {
     procesarVenta() {
-      //VENTAS
-        // let param = {idClient:this.bclientes._id, idUser:user._id}
+      //INSERTAR NUEVO CLIENTE
+     
+      // let urlBuscarCliente = "http://localhost:8000/api/buscarcliente/";
+      // let url = "http://localhost:8000/api/clientes/"
+
+      // axios.get(urlBuscarCliente + this.bclientes.nit)
+      //   .then((response) => {
+      //           if(response.data){
+      //   //NO INSERTAMOS NADA YA QUE HAY UN NIT EXISTENTE QUE COINCIDE CON EL INSERTADO
+      //             console.log(' HAY COINCIDENCIAS')
+
+      // }else{
+      //   //INSERTAMOS NUEVO CLIENTE
+      //   console.log('NO HAY COINCIDENCIAS')
+      //   let params = {nombre:this.bclientes.nombre, nit:this.bclientes.nit, telefono:this.bclientes.telefono, direccion:this.bclientes.direccion}
+      //   axios.post(url, params)
+      //     .then(() =>{ 
+      //       console.log('NUEVO CLIENTE INSERTADO') 
+      //       //ahora recuperamos el campo _id del cliente que acabamos de insertar
+      //         let urlBuscarClientee = "http://localhost:8000/api/buscarcliente/";
+      //         axios.get(urlBuscarClientee + this.bclientes.nit)
+      //         .then((respons) => {
+      //            this.bclientes._id = respons.data._id;
+      //            console.log('campo id recuperado')
+      //         })
+      //         .catch((error)=>{
+      //           console.log(error)
+      //         })
+      //     })
+      //     .catch((error)=>{
+      //            console.log(error)
+      //     })
+
+      // }
+
+
+      //   })
+      //   .catch((error) => {
+      //           console.log(error)
+      //   })
+
+     
+
+      //VENTA
+    // setTimeout(()=>{
+             console.log('NO DEBO IR PRIMERO')
         let param = {idClient:this.bclientes._id, idUser:this.user._id, fecha: new Date(), estado:'PAGADO', totalFactura: this.sumField("priceT") }
-        //console.log(nombre)
-        //console.log(param)
+  
         axios.post(urlv, param)
         .then(() =>{                    
             console.log('TODO OKAY')
@@ -304,20 +349,23 @@ export default {
             console.log(error)
         })
 
+    // },1000)
+ 
+
     //DETALLE VENTAS
     //ARREGLAR LOS ASYNC AWAIT O PROMESAS ESTE setTimeout es provisional....
         setTimeout(() => {
           let params = {cantidad:this.ventas}
         //console.log(nombre)
         console.log(params)
-        axios.post(url, params)
+        axios.post(urldv, params)
         .then(() =>{                    
             console.log('TODO OKAY')
         })
         .catch((error)=>{
             console.log(error)
         })
-}, 1000);
+}, 1000); 
 
 
         //location.reload();
@@ -383,24 +431,30 @@ export default {
     buscarCliente() {
       //console.log(this.nit)
       let urlBuscarCliente = "http://localhost:8000/api/buscarcliente/";
-      axios
-        .get(urlBuscarCliente + this.nit)
+      axios.get(urlBuscarCliente + this.bclientes.nit)
         .then((response) => {
           //console.log(response.data)
 
           console.log("SIN  error");
           //console.log(response.data)
           if (response.data) {
+            this.bclientes.nit = response.data.nit;
             this.bclientes.nombre = response.data.nombre;
             this.bclientes.telefono = response.data.telefono;
             this.bclientes.direccion = response.data.direccion;
             this.bclientes._id = response.data._id;
-
+            document.getElementById("nameUsuario").disabled = true
+            document.getElementById("telefonoUsuario").disabled = true
+            document.getElementById("direccionUsuario").disabled = true
+            //DESACTIVAMOS LOS IMPUT
             console.log("IMPRIMI ESTO  "+this.bclientes._id)
           } else {
             this.bclientes.nombre = "";
             this.bclientes.telefono = "";
             this.bclientes.direccion = "";
+              document.getElementById("nameUsuario").disabled = false
+            document.getElementById("telefonoUsuario").disabled = false
+            document.getElementById("direccionUsuario").disabled = false
           }
         })
         .catch((error) => {
@@ -425,6 +479,7 @@ export default {
           console.log(error);
         });
     },
+
     guardarArticulo() {
       let router = this.$router;
       let params = this.articulo;
