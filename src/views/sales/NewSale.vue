@@ -355,7 +355,7 @@ export default {
     //DETALLE VENTAS
     //ARREGLAR LOS ASYNC AWAIT O PROMESAS ESTE setTimeout es provisional....
         setTimeout(() => {
-          let params = {cantidad:this.ventas}
+          let params = {cant:this.ventas}
         //console.log(nombre)
         console.log(params)
         axios.post(urldv, params)
