@@ -25,12 +25,12 @@
           
             <v-row>
               <v-col cols="12">
-                <v-text-field 
+                <v-text-field id="nitUsuario"
                   v-model="bclientes.nit"
                   @keyup="buscarCliente()"
                   label="NIT"
                   outlined
-                  required
+                
                 ></v-text-field>
               </v-col>
               <v-col cols="12">
@@ -38,7 +38,7 @@
                   label="Nombre"
                   v-model="bclientes.nombre"
                   outlined
-                  required
+                  
                 ></v-text-field>
               </v-col>
               <v-col cols="6">
@@ -46,7 +46,7 @@
                   v-model="bclientes.telefono"
                   label="TELEFONO"
                   outlined
-                  required
+                  
                 ></v-text-field>
               </v-col>
               <v-col cols="6">
@@ -54,7 +54,7 @@
                   v-model="bclientes.direccion"
                   label="DIRECCION"
                   outlined
-                  required
+                  
                 ></v-text-field>
               </v-col>
             </v-row>
@@ -295,61 +295,78 @@ export default {
     procesarVenta() {
       //INSERTAR NUEVO CLIENTE
      
-      // let urlBuscarCliente = "http://localhost:8000/api/buscarcliente/";
-      // let url = "http://localhost:8000/api/clientes/"
+      let urlBuscarCliente = "http://localhost:8000/api/buscarcliente/";
+      let url = "http://localhost:8000/api/clientes/"
 
-      // axios.get(urlBuscarCliente + this.bclientes.nit)
-      //   .then((response) => {
-      //           if(response.data){
-      //   //NO INSERTAMOS NADA YA QUE HAY UN NIT EXISTENTE QUE COINCIDE CON EL INSERTADO
-      //             console.log(' HAY COINCIDENCIAS')
+      axios.get(urlBuscarCliente + this.bclientes.nit)
+        .then((response) => {
+        if(response.data){
+        //NO INSERTAMOS NADA YA QUE HAY UN NIT EXISTENTE QUE COINCIDE CON EL INSERTADO
+                  console.log(' HAY COINCIDENCIAS')
+       }
+       //ARREGLAR ESTE IF NO FUNCIONA... TIENE QUE VERIFICAR SI EL INPUT ESTA VACIO O LLENOO VER
+      // OTRA ALTERNATIVA DE VALIDACION 
 
-      // }else{
-      //   //INSERTAMOS NUEVO CLIENTE
-      //   console.log('NO HAY COINCIDENCIAS')
-      //   let params = {nombre:this.bclientes.nombre, nit:this.bclientes.nit, telefono:this.bclientes.telefono, direccion:this.bclientes.direccion}
-      //   axios.post(url, params)
-      //     .then(() =>{ 
-      //       console.log('NUEVO CLIENTE INSERTADO') 
-      //       //ahora recuperamos el campo _id del cliente que acabamos de insertar
-      //         let urlBuscarClientee = "http://localhost:8000/api/buscarcliente/";
-      //         axios.get(urlBuscarClientee + this.bclientes.nit)
-      //         .then((respons) => {
-      //            this.bclientes._id = respons.data._id;
-      //            console.log('campo id recuperado')
-      //         })
-      //         .catch((error)=>{
-      //           console.log(error)
-      //         })
-      //     })
-      //     .catch((error)=>{
-      //            console.log(error)
-      //     })
+      //  else if(!document.getElementById('hola').value ){
+      //        //validacion de campos vacios clientes y campo con solo nit
+      //       //recuperamos el campo _id del cliente defaul que acabamos de insertar
+      //     console.log('DEFAULT CLIENT')
+      // this.bclientes._id = '61918ade8c05de36d43baafa';
+                 
+      //   }
+       
+      else{
+                //INSERTAMOS NUEVO CLIENTE
+        console.log('NO HAY COINCIDENCIAS')
+        let params = {nombre:this.bclientes.nombre, nit:this.bclientes.nit, telefono:this.bclientes.telefono, direccion:this.bclientes.direccion}
+        axios.post(url, params)
+          .then(() =>{ 
+            console.log('NUEVO CLIENTE INSERTADO') 
+            //ahora recuperamos el campo _id del cliente que acabamos de insertar
+              let urlBuscarClientee = "http://localhost:8000/api/buscarcliente/";
+              axios.get(urlBuscarClientee + this.bclientes.nit)
+              .then((respons) => {
+                 this.bclientes._id = respons.data._id;
+                 console.log('campo id recuperado')
+              })
+              .catch((error)=>{
+                console.log(error)
+              })
+          })
+          .catch((error)=>{
+                 console.log(error)
+          })
 
-      // }
+      }
 
 
-      //   })
-      //   .catch((error) => {
-      //           console.log(error)
-      //   })
+        })
+        .catch((error) => {
+                console.log('ERROR MY FRIEND'+error)
+        })
+      // asignamos el id por defecto ya que nit esta vacio
+ 
 
-     
+
+
 
       //VENTA
     // setTimeout(()=>{
-             console.log('NO DEBO IR PRIMERO')
+      setTimeout(()=>{
+
+          //esta busqueda no debe ejecutarse
+        console.log('NO DEBO IR PRIMERO')
         let param = {idClient:this.bclientes._id, idUser:this.user._id, fecha: new Date(), estado:'PAGADO', totalFactura: this.sumField("priceT") }
   
         axios.post(urlv, param)
         .then(() =>{                    
-            console.log('TODO OKAY')
+            console.log('TODO OKAY VENTAS')
         })
         .catch((error)=>{
             console.log(error)
         })
 
-    // },1000)
+    },1000)
  
 
     //DETALLE VENTAS
@@ -360,12 +377,12 @@ export default {
         console.log(params)
         axios.post(urldv, params)
         .then(() =>{                    
-            console.log('TODO OKAY')
+            console.log('TODO OKAY DVENTAS')
         })
         .catch((error)=>{
             console.log(error)
         })
-}, 1000); 
+}, 2000); 
 
 
         //location.reload();
