@@ -30,7 +30,7 @@
                   @keyup="buscarCliente()"
                   label="NIT"
                   outlined
-                
+                  required
                 ></v-text-field>
               </v-col>
               <v-col cols="12">
@@ -90,7 +90,7 @@
             :items="ventas"
             :items-per-page="10"
             class="elevation-1"
-            :search="search"
+          
           >
             <template v-slot:[`item.actions`]="{ item }">
               <v-btn
@@ -105,6 +105,7 @@
             <template v-slot:[`item.cantidad`]="{ item }">
               <v-text-field
                 type="number"
+                min="1"
                 v-model.number="item.cantidad"
                 outlined
               />
@@ -390,14 +391,11 @@ export default {
     },
 
     precioTotal(item) {
-      console.log(this.ventas)
-      //this.sub= 0
+      //console.log(this.ventas)
+ 
       this.ventas[this.ventas.indexOf(item)].priceT =
         item.price0 * item.cantidad;
-      //console.log(item.priceT)
-      //this.t = this.t + this.ventas[this.ventas.indexOf(item)].priceT
-      //this.$set(this.r, 'priceT', this.resultado)
-      //console.log("TOTAL DE VENTAS"+this.ventas[this.ventas.indexOf(item)].priceT)
+
 
       return this.ventas[this.ventas.indexOf(item)].priceT;
     },
@@ -436,14 +434,42 @@ export default {
     },
 
     addToVenta(item) {
+      var estado = 0
       this.datosV = Object.assign({}, item);
-      this.ventas.push({
+      
+        //Validamos si el producto ya ha sido agregado
+        if(this.ventas[0] !== undefined){
+        for(let i in this.ventas){
+          if(this.ventas[i].idProduct0 === this.datosV._id){
+            alert ('El Producto ya ha sido agregado !')
+            estado = 1
+          }
+        }
+            if(estado == 0){
+            console.log('IMPRESION FOR')
+            this.ventas.push({
+            idProduct0: this.datosV._id,
+            description0: this.datosV.description,
+            price0: this.datosV.price,
+            cantidad: 1,
+            priceT: this.datosV.price,
+            
+            });
+          }
+            return 0
+      }
+
+        else{
+        this.ventas.push({
         idProduct0: this.datosV._id,
         description0: this.datosV.description,
         price0: this.datosV.price,
         cantidad: 1,
         priceT: this.datosV.price,
       });
+          
+        }
+  
     },
     buscarCliente() {
       //console.log(this.nit)
