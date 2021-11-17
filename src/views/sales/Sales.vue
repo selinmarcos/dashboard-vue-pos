@@ -34,10 +34,11 @@
                     :search="search"
                 >
                 <template v-slot:[`item.actions`]="{ item }">
+                    <v-btn  @click="id=item._id" fab small color="blue-grey darken-4"><v-icon>mdi-eye</v-icon></v-btn>
                     <v-btn fab small color="light-blue" @click="editar(item)">
                         <v-icon>mdi-pencil</v-icon>
                     </v-btn>
-                    <v-btn @click.stop="dialog=true" @click="id=item._id" fab small color="blue-grey darken-4"><v-icon>mdi-delete</v-icon></v-btn>
+                    <v-btn @click.stop="dialog=true" @click="id=item._id" fab small color="red lighten-1"><v-icon>mdi-cancel</v-icon></v-btn>
                 </template>
                 </v-data-table>
         <!-- -------------------------------------<VENTANAS DE DIALOGO>----------------------------------         -->

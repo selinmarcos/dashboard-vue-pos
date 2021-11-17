@@ -108,6 +108,8 @@
                 min="1"
                 v-model.number="item.cantidad"
                 outlined
+                required
+                @keydown="cantidadProducto()"
               />
             </template>
 
@@ -293,6 +295,9 @@ export default {
 
 
   methods: {
+    cantidadProducto(){
+      console.log('CANTIDAD PRODUCTO')
+    },
     procesarVenta() {
       //INSERTAR NUEVO CLIENTE
      
@@ -317,7 +322,7 @@ export default {
       //   }
        
       else{
-                //INSERTAMOS NUEVO CLIENTE
+          //INSERTAMOS NUEVO CLIENTE
         console.log('NO HAY COINCIDENCIAS')
         let params = {nombre:this.bclientes.nombre, nit:this.bclientes.nit, telefono:this.bclientes.telefono, direccion:this.bclientes.direccion}
         axios.post(url, params)
@@ -375,7 +380,7 @@ export default {
         setTimeout(() => {
           let params = {cant:this.ventas}
         //console.log(nombre)
-        console.log(params)
+        //console.log(params)
         axios.post(urldv, params)
         .then(() =>{                    
             console.log('TODO OKAY DVENTAS')
@@ -385,9 +390,29 @@ export default {
         })
 }, 2000); 
 
+        //STOCK
+        let urlProduct = 'http://localhost:8000/api/stock/'
+        let paramstock = {cant:this.ventas}
+        axios.put(urlProduct, paramstock)
 
-        //location.reload();
+        .then(()=>{
+            console.log("modificando stock...")
+            
+          })
+        .catch((error)=>{
+              console.log('error al modificar stock'+error)
+            
+        })
+
+
+        setTimeout(()=>{
+        console.log('DEBO EJECUTARME AL FINAL')
+
+        alert('VENTA AGREGADA')
+        location.reload();
         
+        }, 2500)
+
     },
 
     precioTotal(item) {
@@ -523,19 +548,19 @@ export default {
         });
     },
 
-    guardarArticulo() {
-      let router = this.$router;
-      let params = this.articulo;
-      axios
-        .post(url, params)
-        .then(() => {
-          console.log(params);
-          router.push("/articulos");
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    },
+    // guardarArticulo() {
+    //   let router = this.$router;
+    //   let params = this.articulo;
+    //   axios
+    //     .post(url, params)
+    //     .then(() => {
+    //       console.log(params);
+    //       router.push("/articulos");
+    //     })
+    //     .catch((error) => {
+    //       console.log(error);
+    //     });
+    // },
   },
          computed:{
           ...mapGetters(['user'])
