@@ -1,41 +1,77 @@
 <template>
-  <div class="mainpage">
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">Navbar</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNavDropdown">
-      <ul class="navbar-nav">
-        <li class="nav-item active">
-          <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Features</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Pricing</a>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Dropdown link
-          </a>
-          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <a class="dropdown-item" href="#">Action</a>
-            <a class="dropdown-item" href="#">Another action</a>
-            <a class="dropdown-item" href="#">Something else here</a>
-          </div>
-        </li>
-      </ul>
+
+<div class="main">
+    <div class="title-container">
+        <h1>SISTEMA DE VENTAS Y FACTURACION ONLINE</h1>
     </div>
-  </nav>
-    
-  </div>
+    <div class="cards-container"> 
 
+            <div class="card">
 
-    
-   
+                <div class="top-row background-top-row">
+                    <h4>Instagram</h4>
+                    <i class="fa fa-instagram" aria-hidden="true"></i>
+                </div>
+
+                <div class="content">
+                    <h2>Instagram</h2>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Omnis odit repellat quo placeat illo officia, assumenda repudiandae commodi dolor libero.</p>
+                    <button class="button background-top-row">Empezar</button>
+                </div>
+
+            </div>
+
+            <div class="card">
+
+                <div class="top-row background-top-row">
+                    <h4>YouTube</h4>
+                    <i class="fa fa-youtube" aria-hidden="true"></i>
+                </div>
+
+                <div class="content">
+                    <h2>Youtube</h2>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Omnis odit repellat quo placeat illo officia, assumenda repudiandae commodi dolor libero.</p>
+                    <button class="button background-top-row">Empezar</button>
+                </div>
+
+            </div>
+
+            <div class="card">
+
+                <div class="top-row background-top-row">
+                    <h4>Facebook</h4>
+                    <i class="fa fa-facebook" aria-hidden="true"></i>
+                </div>
+
+                <div class="content">
+                    <h2>Facebook</h2>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Omnis odit repellat quo placeat illo officia, assumenda repudiandae commodi dolor libero.</p>
+                    <button class="button background-top-row">Empezar</button>
+                </div>
+
+            </div>
+
+            <div class="card">
+
+                <div class="top-row background-top-row">
+                    <h4>Twitter</h4>
+                    <i class="fa fa-twitter" aria-hidden="true"></i>
+                </div>
+
+                <div class="content">
+                    <h2>Twitter</h2>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Omnis odit repellat quo placeat illo officia, assumenda repudiandae commodi dolor libero.</p>
+                    <button class="button background-top-row">Empezar</button>
+                </div>
+
+            </div>
+
+    </div>
+</div>  
 </template>
+
+
+
 <script>
  import {mapGetters} from 'vuex'
  export default{
@@ -47,82 +83,119 @@
  }
 </script>
 <style>
-@import url('https://fonts.googleapis.com/css?family=Fira+Sans:400,500,600,700,800');
+@import url('https://fonts.googleapis.com/css2?family=Electrolize&display=swap');
+
+:root{
+    --white-text:#fff;
+}
+
+.background-top-row{
+    background-color: rgba(52,3,45,0.3);
+    backdrop-filter: blur(.4rem);
+}
+
 *{
-  box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    text-decoration: none;
+    box-sizing: border-box;
+    border: none;
 }
-.mainpage{
- margin-top: 34px;
-}
-.navbar-light{
-  height: 90px;
-}
+
 body{
-  background: #1C8EF9 !important;
-  min-height: 100vh;
-  display: flex;
-  font-weight: 400;
-  font-family: 'Fira Sans', sans-serif;
-  
-}
-h1, h2, h3, h4, h5, h6, label, span{
-  font-weight: 500;
-  font-family: 'Fira Sans', sans-serif;
+    font-family: Arial, Helvetica, sans-serif;
+    /* background: url("background.jpg") !important; */
+    background: #292841;
+    background-size: cover;
 }
 
-body, html, #app, #root, .auth-wraper{
-  width: 100%;
-  height: 100%;
-}
 
-#app{
-  text-align: center
+.title-container{
+    padding-top: 10vh;
+    text-align: center;
+    color: #29CC7A;
+    font-family: 'Electrolize', sans-serif;
+
 }
 
 
 
-.auth-wraper{
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  text-align: left;
-}
-.auth-inner{
-  width: 450px;
-  margin: auto;
-  background: #ffffff;
-  box-shadow: 0px 14px 80px rgba(34,35,58,0.2);
-  padding: 40px 55px 45px 55px;
-  border-radius: 15px;
-  transition: all  .3s;
-}
-.auth-wraper .form-control:focus{
-  border-color: #167BFF;
-  box-shadow: none;
+.cards-container{
+    display: flex;
+    justify-content: center;
+    height: 100vh;
+    align-items: center;
 }
 
-.auth-wraper h3{
-  text-align: center;
-  margin: 0;
-  line-height: 1;
-  padding-bottom: 20px;
+.card{
+    border-radius: 1rem;
+    box-shadow: 0 1rem 1rem rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    margin: 1.5rem;
+    overflow: hidden;
+    width: 15rem;
+    backdrop-filter: blur(1rem);
+    background-color: rgba(255, 255, 255, 0.060);
+    border: .1rem solid rgba(255, 255, 255, 0.18);
+    color: var(--white-text);
 }
 
-.custom-control-label{
-  font-weight: 400;
+.card h6{
+    letter-spacing: .1rem;
+    text-transform: uppercase;
 }
 
-.forgot-password,
-.forgot-password a{
-  text-align:center;
-  font-size: 13px;
-  padding-top: 10px;
-  color: #7f7d7d;
-  margin: 0;
+.card h2{
+    letter-spacing: .1rem;
+    margin: 1rem 0;
+
 }
 
-.forgot-password a{
-  color: #167bff
+.top-row{
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+
 }
 
+.top-row i{
+    font-size: 2rem;
+}
+
+.content{
+    padding: 2rem;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+
+.content p{
+    font-size: .9rem;    
+}
+
+.button{
+    border-radius: 3rem;
+    color: var(--white-text);
+    font-size: .8rem;
+    padding: .5rem .3rem;
+    letter-spacing: .1rem;
+    align-self: flex-end;
+    border: .1rem solid rgba(255, 255, 255, 0.18);
+}
+
+/* media queries */
+
+@media (max-width:1030px){
+    .cards-container{
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: auto;
+    }
+}
 </style>

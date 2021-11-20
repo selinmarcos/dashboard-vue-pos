@@ -27,6 +27,12 @@ export default new Router({
         path: '/register',
         component: () => import('@/components/Register.vue'),
     },
+    //FORGOT PASSWORD
+    {
+      name: 'Forgot',
+      path: '/forgot',
+      component: () => import('@/components/Forgot.vue'),
+    },
     //DASHBOARD
     {
       //name: 'Dashboard',
@@ -76,12 +82,12 @@ export default new Router({
           path: '/articulos/editar/:id',
           component:()=> import('@/views/articulos/EditarArticulo')
         },
-        // Dashboard
-        // {
-        //   name: 'dashboard',
-        //   path: '',
-        //   component: () => import('@/views/dashboard/Dashboard'),
-        // },
+        // INICIO
+        {
+          name: 'DASHBOARD',
+          path: '/dashboard',
+          component: () => import('@/views/dashboard/Dashboard'),
+        },
         {
           name: 'PROVEEDORES',
           path: '/providers',
@@ -97,6 +103,12 @@ export default new Router({
           path: '/reports',
           component: () => import('@/views/reports/Report'),
         },
+        {
+          name: 'SETTINGS',
+          path: '/settings',
+          component: () => import('@/views/Config'),
+        },
+
         // Pages
         {
           name: 'User Profile',

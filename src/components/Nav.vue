@@ -1,7 +1,7 @@
 <template>
     <nav class="navbar navbar-dark bg-dark navbar-expand  fixed-top">
       <div class="container">
-        <router-link to="/" class="navbar-brand">Home</router-link>
+        <router-link to="/" class="navbar-brand">SENKU</router-link>
         <div class="collapse navbar-collapse">
            <ul class="navbar-nav ml-auto" v-if="!user">
               <li class="nav-item">
@@ -21,7 +21,7 @@
                 </a>
                 <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
                     <li><a class="dropdown-item" href="#">Profile</a></li>
-                    <li> <router-link to="/dash" class="dropdown-item">Dashboard</router-link></li>
+                    <li> <router-link to="/dashboard" class="dropdown-item">Dashboard</router-link></li>
                     <div class="dropdown-divider"></div>
                     <li><a class="dropdown-item" @click="handleClick" href="javascript:void(0)">Sign out</a></li>
                 </ul>

@@ -96,7 +96,42 @@ export default {
 
 </script>
 <style>
-.auth-wraper{
+@import url('https://fonts.googleapis.com/css?family=Fira+Sans:400,500,600,700,800');
+*{
+  box-sizing: border-box;
+}
+.mainpage{
+ margin-top: 34px;
+}
+.navbar-light{
+  height: 90px;
+}
+body{
+  background: #292841 !important;
+  min-height: 100vh;
+  display: flex;
+  font-weight: 400;
+  font-family: 'Fira Sans', sans-serif;
+  
+}
+h1, h2, h3, h4, h5, h6, label, span{
+  font-weight: 500;
+  font-family: 'Fira Sans', sans-serif;
+  text-align: center;
+}
+
+body, html, #app, #root, .auth-wraper{
+  width: 100%;
+  height: 100%;
+}
+
+#app{
+  text-align: left
+} 
+
+
+
+ .auth-wraper{
   display: flex;
   justify-content: center;
   flex-direction: column;
@@ -104,6 +139,7 @@ export default {
 }
 .auth-inner{
   width: 450px;
+  margin-top: 10vh !important;
   margin: auto;
   background: #ffffff;
   box-shadow: 0px 14px 80px rgba(34,35,58,0.2);
@@ -139,6 +175,5 @@ export default {
 .forgot-password a{
   color: #167bff
 }
-
 
 </style>

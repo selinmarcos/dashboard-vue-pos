@@ -6,15 +6,6 @@
    
   </div>
 
-   
-    
- 
-  
-         
- 
-     
-
- 
 </template>
 
 <script>
@@ -36,7 +27,5 @@
   }
 </script>
  <style>
-   #dash{
-     position: absolute;
-   }
+
  </style>

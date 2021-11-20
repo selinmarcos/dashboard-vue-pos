@@ -181,6 +181,7 @@ import axios from 'axios'
     created(){
         axios.get(url).then(response =>{
             this.products = response.data
+            console.log('METODO CREATED:'+ response.data)
             
         })
     },
@@ -215,6 +216,7 @@ import axios from 'axios'
                 axios.get(url)
                 .then(response =>{
                     this.products= response.data
+                    console.log('OBTENER PRODUCTOS'+ response.data)
                 })
                 .catch((error)=>{
                     console.log(error)

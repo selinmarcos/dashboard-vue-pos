@@ -109,7 +109,7 @@
         {
           icon: 'mdi-home',
           title: 'INICIO',
-          to: '/dash',
+          to: '/dashboard',
         },
         {
           icon: 'mdi-cube',
@@ -146,6 +146,11 @@
           title: 'USUARIOS',
           to: '/users',
         },
+        {
+          icon: 'mdi-cog',
+          title: 'CONFIGURACIÓN',
+          to: '/settings',
+        }
         // {
         //   icon: 'mdi-account',
         //   title: 'user',

@@ -106,10 +106,13 @@
               <v-text-field
                 type="number"
                 min="1"
+             
                 v-model.number="item.cantidad"
                 outlined
                 required
-                @keydown="cantidadProducto()"
+                @keyup="cantidadProducto(item)"
+                @mouseup="cantidadProducto(item)" 
+                id="stockField"
               />
             </template>
 
@@ -295,8 +298,27 @@ export default {
 
 
   methods: {
-    cantidadProducto(){
-      console.log('CANTIDAD PRODUCTO')
+    //Verificamos si hay stock 
+    cantidadProducto(item){
+      this.datosV = Object.assign({}, item);
+      console.log(this.datosV)
+
+      let urlStock = "http://localhost:8000/api/products/"
+      
+            axios.get(urlStock + this.datosV.idProduct0)
+              .then((respons) => {
+
+              var availableStock = respons.data.stock
+                console.log(availableStock)
+                
+                document.getElementById("stockField").max = availableStock
+
+                
+              })
+              .catch((error)=>{
+                console.log(error)
+              })
+
     },
     procesarVenta() {
       //INSERTAR NUEVO CLIENTE
