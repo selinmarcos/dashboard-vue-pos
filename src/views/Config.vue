@@ -326,18 +326,51 @@
               Don't be scared of the truth because we need to restart the human foundation in truth And I love you like Kanye loves Kanye I love Rick Owens’ bed design but the back is...
             </p>
 
-            <v-btn
+
+
+            <v-btn 
+               @click="createInvoice"
               color="success"
               rounded
               class="mr-0"
             >
-              Follow
+              create
+            </v-btn>
+                <v-btn 
+                @click.stop="dialog=true"
+              @click="renderInvoice"
+              color="success"
+              rounded
+              class="mr-0"
+            >
+              render
+            </v-btn>
+                <v-btn 
+              @click="downloadInvoice"
+              color="success"
+              rounded
+              class="mr-0"
+            >
+              download
             </v-btn>
           </v-card-text>
         </base-material-card>
       </v-col>
     </v-row>
+         <v-dialog   v-model="dialog" max-width="750">
+           
+                            <p>
+    Invoice Base64 (click create invoice):
+    <small>{{ invoiceBase64 }}</small>
+    </p>
+  
+  <div id="pdf"></div>
+
+           
+
+        </v-dialog> 
   </v-container>
+  
 </template>
 <script>
 import axios from "axios";
@@ -349,6 +382,8 @@ import axios from "axios";
     // },
     data(){
         return{
+           dialog: false,
+            invoiceBase64: '',
             business: {
                 _id:"",
                 nit: "",
@@ -387,6 +422,103 @@ import axios from "axios";
         })
     },
     methods:{
+        //INVOICE SAMPLE
+        async createInvoice() {
+	    //See documentation for all data properties
+      const data = this.getSampleData(); 
+      const result = await easyinvoice.createInvoice(data);
+      this.invoiceBase64 = result.pdf;
+    },
+    async downloadInvoice() {
+       //See documentation for all data properties
+      const data = this.getSampleData(); 
+      const result = await easyinvoice.createInvoice(data);
+      easyinvoice.download('myInvoice.pdf', result.pdf);
+      //	you can download like this as well:
+      //	easyinvoice.download();
+      //	easyinvoice.download('myInvoice.pdf');
+    },
+    async renderInvoice(){
+
+     
+
+
+
+     //See documentation for all data properties
+      document.getElementById("pdf").innerHTML = "loading...";
+      const data = this.getSampleData(); 
+      const result = await easyinvoice.createInvoice(data);      
+    	easyinvoice.render('pdf', result.pdf);
+      //window.open(easyinvoice.render('pdf', result.pdf));
+    },
+    getSampleData() {
+      return {
+        //"documentTitle": "RECEIPT", //Defaults to INVOICE
+
+        //"locale": "de-DE", 
+        //Defaults to en-US. List of locales: https://datahub.io/core/language-codes/r/3.html 
+
+        "currency": "USD", 
+        //Defaults to no currency. List of currency codes: https://www.iban.com/currency-codes
+
+        "taxNotation": "vat", //or gst
+        "marginTop": 25,
+        "marginRight": 25,
+        "marginLeft": 25,
+        "marginBottom": 25,
+        "logo": "https://public.easyinvoice.cloud/img/logo_en_original.png", //or base64
+				"background": "https://public.easyinvoice.cloud/img/watermark-draft.jpg", //or base64
+        "sender": {
+          "company": "Sample Corp",
+          "address": "Sample Street 123",
+          "zip": "1234 AB",
+          "city": "Sampletown",
+          "country": "Samplecountry"
+          //"custom1": "custom value 1",
+          //"custom2": "custom value 2",
+          //"custom3": "custom value 3"
+        },
+        "client": {
+          "company": "Client Corp",
+          "address": "Clientstreet 456",
+          "zip": "4567 CD",
+          "city": "Clientcity",
+          "country": "Clientcountry"
+          //"custom1": "custom value 1",
+          //"custom2": "custom value 2",
+          //"custom3": "custom value 3"
+        },
+        "invoiceNumber": "2021.0001",
+        "invoiceDate": "1.1.2021",
+        "products": [
+            {
+                "quantity": "2",
+                "description": "Test1",
+                "tax": 6,
+                "price": 33.87
+            },
+            {
+                "quantity": "4",
+                "description": "Test2",
+                "tax": 21,
+                "price": 10.45
+            }
+        ],
+        "bottomNotice": "Kindly pay your invoice within 15 days.",
+        //Used for translating the headers to your preferred language
+        //Defaults to English. Below example is translated to Dutch
+        // "translate": { 
+        //     "invoiceNumber": "Factuurnummer",
+        //     "invoiceDate": "Factuurdatum",
+        //     "products": "Producten", 
+        //     "quantity": "Aantal", 
+        //     "price": "Prijs",
+        //     "subtotal": "Subtotaal",
+        //     "total": "Totaal" 
+        // }
+      };
+    },
+
         //CREATE
        handleCompany(){
            console.log('HANDLE business RUNNING')
@@ -437,3 +569,13 @@ import axios from "axios";
     } 
   }
 </script>
+<style>
+#pdf {
+  text-align: center;
+}
+
+#pdf canvas {
+  border: 1px solid black;
+  width: 95%;
+}
+</style>

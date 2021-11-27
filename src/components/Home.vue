@@ -1,6 +1,6 @@
 <template>
 
-<div class="main">
+<div class="main" >
     <div class="title-container">
         <h1>SISTEMA DE VENTAS Y FACTURACION ONLINE</h1>
     </div>

@@ -70,7 +70,8 @@ export default {
         this.$store.dispatch("user", response.data);
 
         //redireccionamos al dashboard
-        this.$router.push("/dashboard");
+        // this.$router.push("/dashboard");
+        this.$router.push({name:'Inicio'})
       } catch (e) {
         this.error = "Usuario o Contraseña Incorrecto";
       }

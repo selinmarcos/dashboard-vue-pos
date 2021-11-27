@@ -1,4 +1,4 @@
-<template>
+<template >
   <v-app id="dashboardd">
     <dashboard-core-app-bar />
 
@@ -8,6 +8,7 @@
 
     <dashboard-core-settings />
   </v-app>
+ 
 </template>
 
 <script>

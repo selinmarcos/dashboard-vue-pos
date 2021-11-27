@@ -301,7 +301,7 @@ export default {
     //Verificamos si hay stock 
     cantidadProducto(item){
       this.datosV = Object.assign({}, item);
-      console.log(this.datosV)
+   
 
       let urlStock = "http://localhost:8000/api/products/"
       
@@ -310,9 +310,10 @@ export default {
 
               var availableStock = respons.data.stock
                 console.log(availableStock)
-                
-                document.getElementById("stockField").max = availableStock
-
+                //console.log(this.ventas.indexOf(item))
+               document.getElementById("stockField").max = availableStock
+                // this.ventas.splice(this.ventas.indexOf(item), 1)
+   
                 
               })
               .catch((error)=>{
@@ -425,6 +426,11 @@ export default {
               console.log('error al modificar stock'+error)
             
         })
+
+        //INVOICE GENERATOR PDF
+   
+
+
 
 
         setTimeout(()=>{

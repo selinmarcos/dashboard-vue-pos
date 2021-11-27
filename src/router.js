@@ -1,5 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import { Store } from 'vuex'
+import {storee} from './vuex'
+
 
 
 Vue.use(Router)
@@ -36,9 +39,25 @@ export default new Router({
     //DASHBOARD
     {
       //name: 'Dashboard',
-      path: '/dash',
+      path: '/dashboard',
       name: 'dashboard',
       component: () => import('@/views/dashboard/Index'),
+      //ARREGLAR NAVIGATION GUARD
+      // beforeEnter:(to, from, next)=>{
+
+
+      //   if(!storee.getters.user){
+      //     console.log('STOREEEEEE'+storee.getters['user'])
+      //     console.log('NO HAY TOKEN')
+      //     next({name: 'Login'})
+         
+      //   }else{
+      //     console.log('HAY TOKEN')
+      //     next()
+
+      //   }
+      // },
+
       children: [
         //CLIENTS
         {
@@ -84,7 +103,7 @@ export default new Router({
         },
         // INICIO
         {
-          name: 'DASHBOARD',
+          name: 'Inicio',
           path: '/dashboard',
           component: () => import('@/views/dashboard/Dashboard'),
         },
