@@ -321,10 +321,10 @@ export default {
               })
 
     },
-    procesarVenta() {
-      //INSERTAR NUEVO CLIENTE
-     
-      let urlBuscarCliente = "http://localhost:8000/api/buscarcliente/";
+    
+    insertarCliente(){
+      return new Promise((resolve, reject)=>{
+        let urlBuscarCliente = "http://localhost:8000/api/buscarcliente/";
       let url = "http://localhost:8000/api/clientes/"
 
       axios.get(urlBuscarCliente + this.bclientes.nit)
@@ -332,6 +332,7 @@ export default {
         if(response.data){
         //NO INSERTAMOS NADA YA QUE HAY UN NIT EXISTENTE QUE COINCIDE CON EL INSERTADO
                   console.log(' HAY COINCIDENCIAS')
+                  resolve()
        }
        //ARREGLAR ESTE IF NO FUNCIONA... TIENE QUE VERIFICAR SI EL INPUT ESTA VACIO O LLENOO VER
       // OTRA ALTERNATIVA DE VALIDACION 
@@ -373,81 +374,93 @@ export default {
         .catch((error) => {
                 console.log('ERROR MY FRIEND'+error)
         })
-      // asignamos el id por defecto ya que nit esta vacio
- 
-
-
-
-
-      //VENTA
-    // setTimeout(()=>{
-      setTimeout(()=>{
-
-          //esta busqueda no debe ejecutarse
-        console.log('NO DEBO IR PRIMERO')
+      })
+      
+    },
+    venta(){
+      return new Promise((resolve, reject)=>{
+        
+        
         let param = {idClient:this.bclientes._id, idUser:this.user._id, fecha: new Date(), estado:'PAGADO', totalFactura: this.sumField("priceT") }
   
         axios.post(urlv, param)
         .then(() =>{                    
             console.log('TODO OKAY VENTAS')
+            resolve()
         })
         .catch((error)=>{
             console.log(error)
+            reject()
         })
 
-    },1000)
- 
 
-    //DETALLE VENTAS
-    //ARREGLAR LOS ASYNC AWAIT O PROMESAS ESTE setTimeout es provisional....
-        setTimeout(() => {
+      })
+        
+    },
+    detalleVenta(){
+     
+        return new Promise((resolve, reject)=>{
+           console.log('detalle venta')
           let params = {cant:this.ventas}
-        //console.log(nombre)
+        
         //console.log(params)
         axios.post(urldv, params)
         .then(() =>{                    
             console.log('TODO OKAY DVENTAS')
+            
+            resolve()
+           
         })
         .catch((error)=>{
             console.log(error)
+            
+            reject()
         })
-}, 2000); 
+        })
 
-        //STOCK
-        let urlProduct = 'http://localhost:8000/api/stock/'
-        let paramstock = {cant:this.ventas}
+    },
+    stock(){
+       console.log('llamando stock')
+        return new Promise((resolve, reject)=>{
+         
+          let urlProduct = 'http://localhost:8000/api/stock/'
+          let paramstock = {cant:this.ventas}
         axios.put(urlProduct, paramstock)
 
         .then(()=>{
             console.log("modificando stock...")
+            resolve()
             
           })
         .catch((error)=>{
               console.log('error al modificar stock'+error)
-            
+            reject()
         })
 
-        //INVOICE GENERATOR PDF
-   
-
-
-
-
-        setTimeout(()=>{
-        console.log('DEBO EJECUTARME AL FINAL')
-
-        alert('VENTA AGREGADA')
-        location.reload();
-        
-        }, 2500)
-
+        })
+          
     },
+
+    async procesarVenta() {
+      //IMPORTANTE !!!! si await no recibe una respuesta del servidor no pasara al siguiente await...
+             
+        await this.insertarCliente()
+        await this.venta()
+        await this.detalleVenta()
+        await this.stock()
+        
+        alert('VENTA AGREGADA')
+       
+      
+        location.reload();
+  
+    },
+    
 
     precioTotal(item) {
       //console.log(this.ventas)
  
-      this.ventas[this.ventas.indexOf(item)].priceT =
-        item.price0 * item.cantidad;
+      this.ventas[this.ventas.indexOf(item)].priceT = item.price0 * item.cantidad;
 
 
       return this.ventas[this.ventas.indexOf(item)].priceT;
