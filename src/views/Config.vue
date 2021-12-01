@@ -373,6 +373,7 @@
   
 </template>
 <script>
+import easyinvoice from 'easyinvoice';
 import axios from "axios";
  let url = "http://localhost:8000/api/business/";
   export default {

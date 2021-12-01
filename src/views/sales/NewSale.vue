@@ -131,7 +131,9 @@
 
             <v-col>
               <br />
-              <v-btn type="submit" color="blue-grey darken-4" >PROCESAR</v-btn>
+              <!-- <v-btn @click.stop="dialog=true" type="submit" color="blue-grey darken-4" >PROCESAR</v-btn> -->
+              <v-btn  type="submit" color="blue-grey darken-4" >PROCESAR</v-btn>
+
             </v-col>
           </v-row>
         </base-material-card>
@@ -186,9 +188,30 @@
         </base-material-card>
       </v-col>
     </v-row>
+    <!-- INVOICE CONTAINER -->
+             <v-dialog   v-model="dialog" max-width="750">
+           
+                            <p>
+    Invoice Base64 (click create invoice):
+    <small>{{ invoiceBase64 }}</small>
+     <button onClick="window.print()">print</button>
+    </p>
+  
+    <div id="pdf" >
+   
+  </div>
+  
+  
+
+           
+
+        </v-dialog> 
   </v-container>
 </template>
 <script>
+import easyinvoice from 'easyinvoice';
+
+
 import axios from "axios";
 import {mapGetters} from 'vuex'
 let urldv = "http://localhost:8000/api/dventas"
@@ -206,6 +229,9 @@ export default {
   },
   data() {
     return {
+      invoiceBase64: '',
+
+      dialog: false,
       selected: [],
 
       bclientes: {
@@ -298,7 +324,7 @@ export default {
 
 
   methods: {
-    //Verificamos si hay stock 
+    //Verificamos si hay stock con text field number
     cantidadProducto(item){
       this.datosV = Object.assign({}, item);
    
@@ -440,7 +466,6 @@ export default {
         })
           
     },
-
     async procesarVenta() {
       //IMPORTANTE !!!! si await no recibe una respuesta del servidor no pasara al siguiente await...
              
@@ -448,14 +473,95 @@ export default {
         await this.venta()
         await this.detalleVenta()
         await this.stock()
-        
-        alert('VENTA AGREGADA')
-       
-      
+     
+        await this.templateInvoice()  
+
         location.reload();
   
     },
-    
+    //<TEMPLATE INVOICE JSPDF>
+    templateInvoice(){
+      var props = {
+    outputType: jsPDFInvoiceTemplate.OutputType.Save,
+    returnJsPDFDocObject: true,
+    fileName: "Invoice 2021",
+    orientationLandscape: false,
+    logo: {
+        src: "https://raw.githubusercontent.com/edisonneza/jspdf-invoice-template/demo/images/logo.png",
+        width: 53.33, //aspect ratio = width/height
+        height: 26.66,
+        margin: {
+            top: 0, //negative or positive num, from the current position
+            left: 0 //negative or positive num, from the current position
+        }
+    },
+    business: {
+        name: "Business Name",
+        address: "Albania, Tirane ish-Dogana, Durres 2001",
+        phone: "(+355) 069 11 11 111",
+        email: "email@example.com",
+        email_1: "info@example.al",
+        website: "www.example.al",
+    },
+    contact: {
+        label: "Invoice issued for:",
+        name: "Client Name",
+        address: "Albania, Tirane, Astir",
+        phone: "(+355) 069 22 22 222",
+        email: "client@website.al",
+        otherInfo: "www.website.al",
+    },
+    invoice: {
+        label: "Invoice #: ",
+        num: 19,
+        invDate: "Payment Date: 01/01/2021 18:12",
+        invGenDate: "Invoice Date: 02/02/2021 10:17",
+        headerBorder: false,
+        tableBodyBorder: false,
+        header: ["#", "Description", "Price", "Quantity", "Total"],
+        table: Array.from(Array(this.ventas.length), (item, index)=>([   
+            index + 1,
+            this.ventas[index].description0,
+            this.ventas[index].price0,
+            this.ventas[index].cantidad,
+            this.ventas[index].priceT
+        ])),
+        invTotalLabel: "Total:",
+        invTotal: this.totalVenta("priceT"),
+        invCurrency: "ALL",
+        row1: {
+            col1: 'IVA:',
+            col2: '13',
+            col3: '%',
+            style: {
+                fontSize: 10 //optional, default 12
+            }
+        },
+        row2: {
+            col1: 'SubTotal:',
+            col2: this.sumField("priceT") ,
+            col3: 'ALL',
+            style: {
+                fontSize: 10 //optional, default 12
+            }
+        },
+        invDescLabel: "Invoice Note",
+        invDesc: "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary.",
+    },
+    footer: {
+        text: "The invoice is created on a computer and is valid without the signature and stamp.",
+    },
+    pageEnable: true,
+    pageLabel: "Page ",
+};
+
+ var pdfObject = jsPDFInvoiceTemplate.default(props); 
+ console.log('Object Created', pdfObject)
+
+    },
+
+    //</TEMPLATE INVOICE JSPDF>
+  
 
     precioTotal(item) {
       //console.log(this.ventas)
@@ -589,19 +695,6 @@ export default {
         });
     },
 
-    // guardarArticulo() {
-    //   let router = this.$router;
-    //   let params = this.articulo;
-    //   axios
-    //     .post(url, params)
-    //     .then(() => {
-    //       console.log(params);
-    //       router.push("/articulos");
-    //     })
-    //     .catch((error) => {
-    //       console.log(error);
-    //     });
-    // },
   },
          computed:{
           ...mapGetters(['user'])
