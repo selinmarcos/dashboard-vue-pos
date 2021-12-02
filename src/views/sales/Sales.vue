@@ -34,7 +34,7 @@
                     :search="search"
                 >
                 <template v-slot:[`item.actions`]="{ item }">
-                    <v-btn  @click="id=item._id" fab small color="blue-grey darken-4"><v-icon>mdi-eye</v-icon></v-btn>
+                    <v-btn  @click="id=item._id, generatePDF(item._id)"  fab small color="blue-grey darken-4"><v-icon>mdi-eye</v-icon></v-btn>
                     <v-btn fab small color="light-blue" @click="editar(item)">
                         <v-icon>mdi-pencil</v-icon>
                     </v-btn>
@@ -142,7 +142,8 @@ import axios from 'axios'
         ],
         ventas: [ //noFactura DE LA TABLA
            
-        ],  
+        ],
+        registerVenta:[],  
         editedIndex: -1, //para saber si es editar o crear
         editado:{
             _id: '',
@@ -182,6 +183,104 @@ import axios from 'axios'
         }
     },
     methods:{
+        //INVOICE PDF
+         generatePDF(id){
+             console.log('INVOICE',id)
+             let urld = 'http://localhost:8000/api/dventas/'
+             axios.get(urld + id)
+        .then((response) => {
+             this.registerVenta= response.data
+
+             this.total= this.registerVenta.length
+             console.log('CANTIDAD',this.registerVenta[0].cantidad)
+             console.log('ARRAY',this.registerVenta)
+
+             var props = {
+    outputType: jsPDFInvoiceTemplate.OutputType.Save,
+    returnJsPDFDocObject: true,
+    fileName: "Invoice 2021",
+    orientationLandscape: false,
+    logo: {
+        src: "https://raw.githubusercontent.com/edisonneza/jspdf-invoice-template/demo/images/logo.png",
+        width: 53.33, //aspect ratio = width/height
+        height: 26.66,
+        margin: {
+            top: 0, //negative or positive num, from the current position
+            left: 0 //negative or positive num, from the current position
+        }
+    },
+    business: {
+        name: "Business Name",
+        address: "Albania, Tirane ish-Dogana, Durres 2001",
+        phone: "(+355) 069 11 11 111",
+        email: "email@example.com",
+        email_1: "info@example.al",
+        website: "www.example.al",
+    },
+    contact: {
+        label: "Invoice issued for:",
+        name: "Client Name",
+        address: "Albania, Tirane, Astir",
+        phone: "(+355) 069 22 22 222",
+        email: "client@website.al",
+        otherInfo: "www.website.al",
+    },
+    invoice: {
+        label: "Invoice #: ",
+        num: 19,
+        invDate: "Payment Date: 01/01/2021 18:12",
+        invGenDate: "Invoice Date: 02/02/2021 10:17",
+        headerBorder: false,
+        tableBodyBorder: false,
+        header: ["#", "Description", "Price", "Quantity", "Total"],
+        table: Array.from(Array(this.total), (item, index)=>([
+            index + 1,
+            "There are many variations ",
+            200.5,
+            this.registerVenta[index].cantidad,
+            this.registerVenta[index].precioVenta
+        ])),
+        invTotalLabel: "Total:",
+        invTotal: "145,250.50",
+        invCurrency: "ALL",
+        row1: {
+            col1: 'VAT:',
+            col2: '20',
+            col3: '%',
+            style: {
+                fontSize: 10 //optional, default 12
+            }
+        },
+        row2: {
+            col1: 'SubTotal:',
+            col2: '116,199.90',
+            col3: 'ALL',
+            style: {
+                fontSize: 10 //optional, default 12
+            }
+        },
+        invDescLabel: "Invoice Note",
+        invDesc: "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary.",
+    },
+    footer: {
+        text: "The invoice is created on a computer and is valid without the signature and stamp.",
+    },
+    pageEnable: true,
+    pageLabel: "Page ",
+};
+
+var pdfObject = jsPDFInvoiceTemplate.default(props); //returns number of pages created
+console.log('Object Created', pdfObject)
+  
+        }).catch((error) => {
+            console.log(error)
+
+        });
+
+
+    
+    },    
+
         //mostrar datos otra vez por que no funciona con created cuando borras un registro.
         obtenerClientes(){
                 axios.get(url)
