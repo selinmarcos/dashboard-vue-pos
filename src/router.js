@@ -1,7 +1,9 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import { Store } from 'vuex'
-import {storee} from './vuex'
+// import { Store } from 'vuex'
+import store from './store'
+import axios from 'axios'
+//import {mapGetters} from 'vuex'
 
 
 
@@ -42,21 +44,28 @@ export default new Router({
       path: '/dashboard',
       name: 'dashboard',
       component: () => import('@/views/dashboard/Index'),
-      //ARREGLAR NAVIGATION GUARD
-      // beforeEnter:(to, from, next)=>{
 
-
-      //   if(!storee.getters.user){
-      //     console.log('STOREEEEEE'+storee.getters['user'])
-      //     console.log('NO HAY TOKEN')
-      //     next({name: 'Login'})
-         
-      //   }else{
-      //     console.log('HAY TOKEN')
-      //     next()
-
-      //   }
-      // },
+      // NAVIGATION GUARD--usamoa axios para ver si existe un usuario activo... si no usamos axios no fucionara
+      //a pesar de tener en App.vue el created... si el servidor da una respuesta negativ redirigmos a login y si da una 
+      //respuesta positiva hacemos dispatch de la data.
+     beforeEnter:(to, from, next)=>{
+       axios.get('user')
+       .then((response)=>{
+         if(response.data){
+       
+          store.dispatch('user', response.data) 
+          console.log(' HAY TOKEN')
+          next()
+         }
+       }).catch((e)=>{         
+        console.log(' NO HAY TOKEN')
+        next(false)
+       
+        next({name: 'Login'})
+          //console.log('ERROR FATAL')
+       })
+      
+      },
 
       children: [
         //CLIENTS

@@ -90,7 +90,7 @@
             :items="ventas"
             :items-per-page="10"
             class="elevation-1"
-          
+            
           >
             <template v-slot:[`item.actions`]="{ item }">
               <v-btn
@@ -106,13 +106,14 @@
               <v-text-field
                 type="number"
                 min="1"
-             
+          
                 v-model.number="item.cantidad"
                 outlined
                 required
                 @keyup="cantidadProducto(item)"
                 @mouseup="cantidadProducto(item)" 
                 id="stockField"
+                
               />
             </template>
 
@@ -189,7 +190,7 @@
       </v-col>
     </v-row>
     <!-- INVOICE CONTAINER -->
-             <v-dialog   v-model="dialog" max-width="750">
+             <!-- <v-dialog   v-model="dialog" max-width="750">
            
                             <p>
     Invoice Base64 (click create invoice):
@@ -205,7 +206,7 @@
 
            
 
-        </v-dialog> 
+        </v-dialog>  -->
   </v-container>
 </template>
 <script>
@@ -229,9 +230,11 @@ export default {
   },
   data() {
     return {
-      invoiceBase64: '',
+  
 
-      dialog: false,
+      ventasFactura: [ //noFactura DE LA TABLA
+           
+        ],
       selected: [],
 
       bclientes: {
@@ -352,38 +355,38 @@ export default {
       return new Promise((resolve, reject)=>{
         let urlBuscarCliente = "http://localhost:8000/api/buscarcliente/";
       let url = "http://localhost:8000/api/clientes/"
-
-      axios.get(urlBuscarCliente + this.bclientes.nit)
+      // if(document.getElementById('nitUsuario').value == "" )  this.bclientes.nit = '0'
+      axios.get(urlBuscarCliente + this.bclientes.nit )
         .then((response) => {
         if(response.data){
         //NO INSERTAMOS NADA YA QUE HAY UN NIT EXISTENTE QUE COINCIDE CON EL INSERTADO
                   console.log(' HAY COINCIDENCIAS')
                   resolve()
        }
-       //ARREGLAR ESTE IF NO FUNCIONA... TIENE QUE VERIFICAR SI EL INPUT ESTA VACIO O LLENOO VER
-      // OTRA ALTERNATIVA DE VALIDACION 
-
-      //  else if(!document.getElementById('hola').value ){
-      //        //validacion de campos vacios clientes y campo con solo nit
-      //       //recuperamos el campo _id del cliente defaul que acabamos de insertar
-      //     console.log('DEFAULT CLIENT')
-      // this.bclientes._id = '61918ade8c05de36d43baafa';
-                 
-      //   }
+ 
        
       else{
-          //INSERTAMOS NUEVO CLIENTE
+         //let's add default values 
+        
+        if(document.getElementById('telefonoUsuario').value == "" )  this.bclientes.telefono = '0'
+      
+        if(document.getElementById('nameUsuario').value == "") this.bclientes.nombre = "Regular"
+
+        if(document.getElementById('direccionUsuario').value == "" ) this.bclientes.direccion = 'NN'
+
+        //INSERTAMOS NUEVO CLIENTE
         console.log('NO HAY COINCIDENCIAS')
         let params = {nombre:this.bclientes.nombre, nit:this.bclientes.nit, telefono:this.bclientes.telefono, direccion:this.bclientes.direccion}
         axios.post(url, params)
-          .then(() =>{ 
-            console.log('NUEVO CLIENTE INSERTADO') 
+          .then((respon) =>{ 
+            console.log('NUEVO CLIENTE INSERTADO', respon.data) 
             //ahora recuperamos el campo _id del cliente que acabamos de insertar
               let urlBuscarClientee = "http://localhost:8000/api/buscarcliente/";
               axios.get(urlBuscarClientee + this.bclientes.nit)
               .then((respons) => {
                  this.bclientes._id = respons.data._id;
                  console.log('campo id recuperado')
+                 resolve()
               })
               .catch((error)=>{
                 console.log(error)
@@ -404,14 +407,17 @@ export default {
       
     },
     venta(){
+
       return new Promise((resolve, reject)=>{
         
-        
+        console.log(this.user._id)
         let param = {idClient:this.bclientes._id, idUser:this.user._id, fecha: new Date(), estado:'PAGADO', totalFactura: this.sumField("priceT") }
-  
+        console.log('ENTRAMOS')
         axios.post(urlv, param)
-        .then(() =>{                    
+        .then((response) =>{                    
             console.log('TODO OKAY VENTAS')
+            this.ventasFactura= response.data
+            console.log(this.ventasFactura)
             resolve()
         })
         .catch((error)=>{
@@ -467,6 +473,9 @@ export default {
           
     },
     async procesarVenta() {
+      console.log(this.ventas.length)
+      //validamos si el datatable is empty
+      if(this.ventas.length){
       //IMPORTANTE !!!! si await no recibe una respuesta del servidor no pasara al siguiente await...
              
         await this.insertarCliente()
@@ -476,11 +485,18 @@ export default {
      
         await this.templateInvoice()  
 
-        location.reload();
-  
+        //limpiamos para no hacer refresh
+        this.ventas= []
+        this.ventasFactura=[],
+        this.bclientes = []
+
+      }else{
+        alert('AGREGUE PRODUCTOS')
+      }
     },
     //<TEMPLATE INVOICE JSPDF>
     templateInvoice(){
+
       var props = {
     outputType: jsPDFInvoiceTemplate.OutputType.Save,
     returnJsPDFDocObject: true,
@@ -512,8 +528,8 @@ export default {
         otherInfo: "www.website.al",
     },
     invoice: {
-        label: "Invoice #: ",
-        num: 19,
+        label: "Factura #: ",
+        num: this.ventasFactura.noFactura,
         invDate: "Payment Date: 01/01/2021 18:12",
         invGenDate: "Invoice Date: 02/02/2021 10:17",
         headerBorder: false,
@@ -557,6 +573,8 @@ export default {
 
  var pdfObject = jsPDFInvoiceTemplate.default(props); 
  console.log('Object Created', pdfObject)
+ //falta abrir en navegador 
+ //window.open(pdfObject)
 
     },
 

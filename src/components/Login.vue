@@ -8,6 +8,7 @@
         </v-alert> -->
         <error  v-if="error" :error="error" />
         <h3>Login</h3>
+        <h4>{{$store.state.user}}</h4>
         <div class="form-group">
           <label>Email</label>
           <input
@@ -68,11 +69,13 @@ export default {
         const response = await axios.get("user");
         //enviamos todo user a vuex
         this.$store.dispatch("user", response.data);
+        //this.$store.state("user", true)
 
         //redireccionamos al dashboard
         // this.$router.push("/dashboard");
         this.$router.push({name:'Inicio'})
       } catch (e) {
+        console.log(e)
         this.error = "Usuario o Contraseña Incorrecto";
       }
     },

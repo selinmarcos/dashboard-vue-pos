@@ -22,7 +22,7 @@ import vuetify from './plugins/vuetify'
 import i18n from './i18n'
 import './axios'
 
-import storee from './vuex'
+//import storee from './vuex'
 
 
 
@@ -31,7 +31,7 @@ Vue.config.productionTip = false
 new Vue({
   router,
   store,
-  storee,
+  //storee,
   vuetify,
   i18n,
  

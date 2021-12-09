@@ -189,14 +189,18 @@ import axios from 'axios'
              let urld = 'http://localhost:8000/api/dventas/'
              axios.get(urld + id)
         .then((response) => {
+           
              this.registerVenta= response.data
 
              this.total= this.registerVenta.length
-             console.log('CANTIDAD',this.registerVenta[0].cantidad)
+          
+
+
+          
              console.log('ARRAY',this.registerVenta)
 
              var props = {
-    outputType: jsPDFInvoiceTemplate.OutputType.Save,
+    outputType: jsPDFInvoiceTemplate.OutputType.DataUrlNewWindow,
     returnJsPDFDocObject: true,
     fileName: "Invoice 2021",
     orientationLandscape: false,
@@ -235,17 +239,17 @@ import axios from 'axios'
         header: ["#", "Description", "Price", "Quantity", "Total"],
         table: Array.from(Array(this.total), (item, index)=>([
             index + 1,
-            "There are many variations ",
-            200.5,
+            this.registerVenta[index].productName,
+            this.registerVenta[index].productPrice,
             this.registerVenta[index].cantidad,
             this.registerVenta[index].precioVenta
         ])),
         invTotalLabel: "Total:",
-        invTotal: "145,250.50",
+        invTotal:this.registerVenta[0].venta.totalFactura.toString(),
         invCurrency: "ALL",
         row1: {
-            col1: 'VAT:',
-            col2: '20',
+            col1: 'IVA:',
+            col2: '13',
             col3: '%',
             style: {
                 fontSize: 10 //optional, default 12
@@ -271,7 +275,10 @@ import axios from 'axios'
 
 var pdfObject = jsPDFInvoiceTemplate.default(props); //returns number of pages created
 console.log('Object Created', pdfObject)
-  
+
+//window.open(pdfObject, "width=200,height=100");
+// window.open(pdfObject,'height=200,width=150')
+//console.log('WE PASSED')  
         }).catch((error) => {
             console.log(error)
 
