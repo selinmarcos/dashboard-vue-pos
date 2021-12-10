@@ -276,9 +276,15 @@ import axios from 'axios'
 var pdfObject = jsPDFInvoiceTemplate.default(props); //returns number of pages created
 console.log('Object Created', pdfObject)
 
-//window.open(pdfObject, "width=200,height=100");
-// window.open(pdfObject,'height=200,width=150')
-//console.log('WE PASSED')  
+// FIX THIS... WE NEED TO SHOW THE INVOICE IN POP UP WITH CUSTOM SIZES....we need to chnge the output type in the begining the guy from youtube said blob is correct now is set with DataUrlNewWindow
+// console.log('blob', pdfObject.Blob)
+//check https://github.com/edisonneza/jspdf-invoice-template/blob/main/src/index.js
+
+// var file = new Blob([pdfObject], {type: 'application/pdf'});
+// var fileURL = URL.createObjectURL(file);
+// window.open(fileURL, "width=200,height=100");
+
+
         }).catch((error) => {
             console.log(error)
 

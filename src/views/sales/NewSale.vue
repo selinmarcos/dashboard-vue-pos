@@ -103,7 +103,7 @@
             </template>
 
             <template v-slot:[`item.cantidad`]="{ item }">
-              <v-text-field
+              <!-- <v-text-field
                 type="number"
                 min="1"
           
@@ -114,7 +114,9 @@
                 @mouseup="cantidadProducto(item)" 
                 id="stockField"
                 
-              />
+              /> -->
+              <v-text-field  onkeypress="return false;" outlined v-model.number="item.cantidad" type="number" class="inputCantidad" append-outer-icon="mdi-plus" @click:append-outer="increment(item)" prepend-icon="mdi-minus" @click:prepend="decrement(item)"></v-text-field>
+
             </template>
 
             <template v-slot:[`item.priceT`]="{ item }">
@@ -140,7 +142,8 @@
         </base-material-card>
       </v-col>
     </v-row>
- </form>
+    </form>
+    <!-- PRODUCTOS TABLE -->
     <v-row>
       <v-col cols="12">
         <base-material-card class="px-5 py-3">
@@ -189,41 +192,20 @@
         </base-material-card>
       </v-col>
     </v-row>
-    <!-- INVOICE CONTAINER -->
-             <!-- <v-dialog   v-model="dialog" max-width="750">
-           
-                            <p>
-    Invoice Base64 (click create invoice):
-    <small>{{ invoiceBase64 }}</small>
-     <button onClick="window.print()">print</button>
-    </p>
-  
-    <div id="pdf" >
-   
-  </div>
-  
-  
-
-           
-
-        </v-dialog>  -->
   </v-container>
 </template>
 <script>
-import easyinvoice from 'easyinvoice';
-
 
 import axios from "axios";
 import {mapGetters} from 'vuex'
 let urldv = "http://localhost:8000/api/dventas"
 let urlv = "http://localhost:8000/api/ventas"
 
-//import easyinvoice from 'easyinvoice';
 
 export default {
   
   name: "NewSale",
-  props: ["usuario"],
+  //props: ["usuario"],
   mounted() {
     // check this function !
     this.obtenerProductos();
@@ -231,7 +213,7 @@ export default {
   data() {
     return {
   
-
+    
       ventasFactura: [ //noFactura DE LA TABLA
            
         ],
@@ -300,6 +282,14 @@ export default {
           sortable: false,
           class: "grey darken-3 white--text",
         },
+        // {
+        //   text: "STOCK",
+        //   value: "stock0",
+        //   sortable: false,
+        //   class: "grey darken-3 white--text",
+        //   align: 'd-none' //hidding column
+          
+        // },
         {
           text: "PRECIO U",
           value: "price0",
@@ -322,34 +312,46 @@ export default {
       products: [
         //description DE LA TABLA
       ],
+
+      foo:0
     };
   },
 
 
   methods: {
-    //Verificamos si hay stock con text field number
-    cantidadProducto(item){
-      this.datosV = Object.assign({}, item);
-   
 
-      let urlStock = "http://localhost:8000/api/products/"
-      
-            axios.get(urlStock + this.datosV.idProduct0)
-              .then((respons) => {
 
-              var availableStock = respons.data.stock
-                console.log(availableStock)
-                //console.log(this.ventas.indexOf(item))
-               document.getElementById("stockField").max = availableStock
-                // this.ventas.splice(this.ventas.indexOf(item), 1)
-   
-                
-              })
-              .catch((error)=>{
-                console.log(error)
-              })
+    increment (item) {
+
+  if(item.stock0 > item.cantidad){
+      console.log(item.stock0)
+  item.cantidad = parseInt(item.cantidad,10) + 1
+      console.log('incrementing')
+        console.log(item.cantidad)
+
+  }
+
+    
 
     },
+    decrement (item) {
+      if(item.cantidad>1){
+      item.cantidad = parseInt(item.cantidad,10) - 1
+      console.log('decrementing')
+    }
+    },
+    //Verificamos si hay stock con text field number
+  //   cantidadProducto(event,item){
+  //      event.preventDefault();   
+  //     // this.datosV = Object.assign({}, item);
+  //     // console.log('STOCK',this.datosV.stock0)
+  //     // console.log(this.datosV.cantidad)
+  // if(item.stock0 > item.cantidad){
+  //     console.log('presionado')
+
+  // }
+
+  //   },
     
     insertarCliente(){
       return new Promise((resolve, reject)=>{
@@ -489,7 +491,8 @@ export default {
         this.ventas= []
         this.ventasFactura=[],
         this.bclientes = []
-
+        //we are going to called it again bc if we don't... don't change the stock if we don't reload the page
+        this.obtenerProductos()
       }else{
         alert('AGREGUE PRODUCTOS')
       }
@@ -498,7 +501,7 @@ export default {
     templateInvoice(){
 
       var props = {
-    outputType: jsPDFInvoiceTemplate.OutputType.Save,
+    outputType: jsPDFInvoiceTemplate.OutputType.DataUrlNewWindow,
     returnJsPDFDocObject: true,
     fileName: "Invoice 2021",
     orientationLandscape: false,
@@ -608,7 +611,7 @@ export default {
       
     },
     //TOTAL
-           totalVenta(key) {
+        totalVenta(key) {
       // sum data in give key (property)      
       this.total =  this.ventas.reduce((a, b) => a + (b[key] || 0), 0) 
       return this.total.toFixed(2)
@@ -640,6 +643,7 @@ export default {
             this.ventas.push({
             idProduct0: this.datosV._id,
             description0: this.datosV.description,
+            stock0: this.datosV.stock,
             price0: this.datosV.price,
             cantidad: 1,
             priceT: this.datosV.price,
@@ -654,6 +658,7 @@ export default {
         idProduct0: this.datosV._id,
         description0: this.datosV.description,
         price0: this.datosV.price,
+        stock0: this.datosV.stock,
         cantidad: 1,
         priceT: this.datosV.price,
       });
@@ -719,3 +724,16 @@ export default {
         }
 };
 </script>
+
+<style scoped>
+.inputCantidad >>> input[type="number"] {
+  -moz-appearance: textfield;
+}
+.inputCantidad >>> input::-webkit-outer-spin-button,
+.inputCantidad >>> input::-webkit-inner-spin-button {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+</style>
+
