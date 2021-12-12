@@ -48,21 +48,17 @@
     data: () => ({
       links: [
         {
-          href: '#',
-          text: 'Creative Tim',
-        },
-        {
-          href: '#',
+          href: 'https://webmasterbolivia.com/',
           text: 'About Us',
         },
-        {
-          href: '#',
-          text: 'Blog',
-        },
-        {
-          href: '#',
-          text: 'Licenses',
-        },
+        // {
+        //   href: '#',
+        //   text: 'Blog',
+        // },
+        // {
+        //   href: '#',
+        //   text: 'Licenses',
+        // },
       ],
     }),
   }

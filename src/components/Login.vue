@@ -8,7 +8,7 @@
         </v-alert> -->
         <error  v-if="error" :error="error" />
         <h3>Login</h3>
-        <h4>{{$store.state.user}}</h4>
+        <!-- <h4>{{$store.state.user}}</h4> -->
         <div class="form-group">
           <label>Email</label>
           <input

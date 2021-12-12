@@ -113,7 +113,7 @@
 </template>
 
 <script>
-let url = 'http://localhost:8000/api/products/'
+
 import axios from 'axios'
   export default {
     mounted(){ // check this function !
@@ -179,7 +179,7 @@ import axios from 'axios'
     },
     //mostrar datos 
     created(){
-        axios.get(url).then(response =>{
+        axios.get("products").then(response =>{
             this.products = response.data
             console.log('METODO CREATED:'+ response.data)
             
@@ -198,8 +198,8 @@ import axios from 'axios'
     methods:{
 
         mostrarProviders(){
-            let urlProvider = 'http://localhost:8000/api/prov/'
-                axios.get(urlProvider)
+            
+                axios.get("prov")
                 .then(response =>{
                     this.proveedores = response.data
                     console.log(this.proveedores)
@@ -213,7 +213,7 @@ import axios from 'axios'
 
         //mostrar datos otra vez por que no funciona con created cuando borras un registro.
         obtenerClientes(){
-                axios.get(url)
+                axios.get("products")
                 .then(response =>{
                     this.products= response.data
                     console.log('OBTENER PRODUCTOS'+ response.data)
@@ -224,7 +224,7 @@ import axios from 'axios'
         },
 
         confirmarBorrado(id){
-        axios.delete(url+id)
+        axios.delete("products"+id)
         .then(()=>{
             this.obtenerClientes()
             this.dialog = false
@@ -240,7 +240,7 @@ import axios from 'axios'
                 let params = {description:this.description, stock:this.stock, price:this.price, idProvider:this.idProvider}
                
                 console.log(params)
-                axios.post(url, params)
+                axios.post("products", params)
                 .then(() =>{                    
                     this.obtenerClientes()
                 })
@@ -252,7 +252,7 @@ import axios from 'axios'
         editarCliente (_id, description, stock, price, idProvider) { 
                 let params = {description, stock, price, idProvider}
                 console.log(params)
-                axios.put(url+_id, params)
+                axios.put("products/"+_id, params)
 
                 .then(()=>{
                     console.log("llegue sin errores")

@@ -6,7 +6,8 @@
                     <template v-slot:heading>
                         <v-row>
                             <v-col class="display-3 font-weight-light pa-0" color="#2A3B4D" cols="12" sm="6" md="4" >
-                                Ventas<v-btn @click.stop="crear=true"  fab small color="error" class="ml-3"><v-icon>mdi-plus</v-icon></v-btn>
+                                Ventas
+                                <!-- <v-btn @click.stop="crear=true"  fab small color="error" class="ml-3"><v-icon>mdi-plus</v-icon></v-btn> -->
                             </v-col>
                             <v-col cols="12" sm="6" md="4" class="pa-0">
                                 
@@ -103,7 +104,6 @@
 </template>
 
 <script>
-let url = 'http://localhost:8000/api/ventas/'
 import axios from 'axios'
   export default {
     mounted(){ // check this function !
@@ -167,7 +167,7 @@ import axios from 'axios'
     },
     //mostrar datos 
     created(){
-        axios.get(url).then(response =>{
+        axios.get("ventas").then(response =>{
             this.ventas = response.data
             
         })
@@ -186,8 +186,8 @@ import axios from 'axios'
         //INVOICE PDF
          generatePDF(id){
              console.log('INVOICE',id)
-             let urld = 'http://localhost:8000/api/dventas/'
-             axios.get(urld + id)
+       
+             axios.get("dventas" + id)
         .then((response) => {
            
              this.registerVenta= response.data
@@ -296,7 +296,7 @@ console.log('Object Created', pdfObject)
 
         //mostrar datos otra vez por que no funciona con created cuando borras un registro.
         obtenerClientes(){
-                axios.get(url)
+                axios.get("ventas")
                 .then(response =>{
                     this.ventas = response.data
                     console.log(response.data)
@@ -307,7 +307,7 @@ console.log('Object Created', pdfObject)
         },
 
         confirmarBorrado(id){
-        axios.delete(url+id)
+        axios.delete("ventas"+id)
         .then(()=>{
             this.obtenerClientes()
             this.dialog = false
@@ -323,7 +323,7 @@ console.log('Object Created', pdfObject)
                 let params = {noFactura:this.noFactura, fecha:this.fecha, idClient:this.idClient, idUser:this.idUser}
                 //console.log(noFactura)
                 console.log(params)
-                axios.post(url, params)
+                axios.post("ventas", params)
                 .then(() =>{                    
                     this.obtenerClientes()
                 })
@@ -339,7 +339,7 @@ console.log('Object Created', pdfObject)
         editarCliente (_id, noFactura, fecha, idClient, idUser) { 
                 let params = {noFactura, fecha, idClient, idUser}
                 console.log(params)
-                axios.put(url+_id, params)
+                axios.put("ventas/"+_id, params)
 
                 .then(()=>{
                     console.log("llegue sin errores")

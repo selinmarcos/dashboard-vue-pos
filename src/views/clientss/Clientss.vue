@@ -102,7 +102,7 @@
 </template>
 
 <script>
-let url = 'http://localhost:8000/api/clientes/'
+
 import axios from 'axios'
   export default {
     mounted(){ // check this function !
@@ -159,7 +159,7 @@ import axios from 'axios'
     },
     //mostrar datos 
     created(){
-        axios.get(url).then(response =>{
+        axios.get("clientes").then(response =>{
             this.clientes = response.data
             
         })
@@ -177,7 +177,7 @@ import axios from 'axios'
     methods:{
         //mostrar datos otra vez por que no funciona con created cuando borras un registro.
         obtenerClientes(){
-                axios.get(url)
+                axios.get("clientes")
                 .then(response =>{
                     this.clientes = response.data
                     console.log(response.data)
@@ -188,7 +188,7 @@ import axios from 'axios'
         },
 
         confirmarBorrado(id){
-        axios.delete(url+id)
+        axios.delete("clientes"+id)
         .then(()=>{
             this.obtenerClientes()
             this.dialog = false
@@ -204,7 +204,7 @@ import axios from 'axios'
                 let params = {nombre:this.nombre, nit:this.nit, telefono:this.telefono, direccion:this.direccion}
                 //console.log(nombre)
                 console.log(params)
-                axios.post(url, params)
+                axios.post("clientes", params)
                 .then(() =>{                    
                     this.obtenerClientes()
                 })
@@ -220,7 +220,7 @@ import axios from 'axios'
         editarCliente (_id, nombre, nit, telefono, direccion) { 
                 let params = {nombre, nit, telefono, direccion}
                 console.log(params)
-                axios.put(url+_id, params)
+                axios.put("clientes/"+_id, params)
 
                 .then(()=>{
                     console.log("llegue sin errores")

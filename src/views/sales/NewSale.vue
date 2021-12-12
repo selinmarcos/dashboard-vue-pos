@@ -198,9 +198,6 @@
 
 import axios from "axios";
 import {mapGetters} from 'vuex'
-let urldv = "http://localhost:8000/api/dventas"
-let urlv = "http://localhost:8000/api/ventas"
-
 
 export default {
   
@@ -355,10 +352,10 @@ export default {
     
     insertarCliente(){
       return new Promise((resolve, reject)=>{
-        let urlBuscarCliente = "http://localhost:8000/api/buscarcliente/";
-      let url = "http://localhost:8000/api/clientes/"
+  
+    
       // if(document.getElementById('nitUsuario').value == "" )  this.bclientes.nit = '0'
-      axios.get(urlBuscarCliente + this.bclientes.nit )
+      axios.get("buscarcliente/" + this.bclientes.nit )
         .then((response) => {
         if(response.data){
         //NO INSERTAMOS NADA YA QUE HAY UN NIT EXISTENTE QUE COINCIDE CON EL INSERTADO
@@ -379,12 +376,11 @@ export default {
         //INSERTAMOS NUEVO CLIENTE
         console.log('NO HAY COINCIDENCIAS')
         let params = {nombre:this.bclientes.nombre, nit:this.bclientes.nit, telefono:this.bclientes.telefono, direccion:this.bclientes.direccion}
-        axios.post(url, params)
+        axios.post("clientes", params)
           .then((respon) =>{ 
             console.log('NUEVO CLIENTE INSERTADO', respon.data) 
             //ahora recuperamos el campo _id del cliente que acabamos de insertar
-              let urlBuscarClientee = "http://localhost:8000/api/buscarcliente/";
-              axios.get(urlBuscarClientee + this.bclientes.nit)
+              axios.get("buscarcliente/" + this.bclientes.nit)
               .then((respons) => {
                  this.bclientes._id = respons.data._id;
                  console.log('campo id recuperado')
@@ -415,7 +411,7 @@ export default {
         console.log(this.user._id)
         let param = {idClient:this.bclientes._id, idUser:this.user._id, fecha: new Date(), estado:'PAGADO', totalFactura: this.sumField("priceT") }
         console.log('ENTRAMOS')
-        axios.post(urlv, param)
+        axios.post("ventas", param)
         .then((response) =>{                    
             console.log('TODO OKAY VENTAS')
             this.ventasFactura= response.data
@@ -438,7 +434,7 @@ export default {
           let params = {cant:this.ventas}
         
         //console.log(params)
-        axios.post(urldv, params)
+        axios.post("dventas", params)
         .then(() =>{                    
             console.log('TODO OKAY DVENTAS')
             
@@ -457,9 +453,8 @@ export default {
        console.log('llamando stock')
         return new Promise((resolve, reject)=>{
          
-          let urlProduct = 'http://localhost:8000/api/stock/'
           let paramstock = {cant:this.ventas}
-        axios.put(urlProduct, paramstock)
+        axios.put("stock/", paramstock)
 
         .then(()=>{
             console.log("modificando stock...")
@@ -629,7 +624,10 @@ export default {
     addToVenta(item) {
       var estado = 0
       this.datosV = Object.assign({}, item);
-      
+      if(this.datosV.stock!=0)
+      {
+       
+     
         //Validamos si el producto ya ha sido agregado
         if(this.ventas[0] !== undefined){
         for(let i in this.ventas){
@@ -638,7 +636,7 @@ export default {
             estado = 1
           }
         }
-            if(estado == 0){
+            if(estado == 0 ){
             console.log('IMPRESION FOR')
             this.ventas.push({
             idProduct0: this.datosV._id,
@@ -664,12 +662,13 @@ export default {
       });
           
         }
-  
+     }else{
+       alert("AGOTADO")
+     }
     },
     buscarCliente() {
       //console.log(this.nit)
-      let urlBuscarCliente = "http://localhost:8000/api/buscarcliente/";
-      axios.get(urlBuscarCliente + this.bclientes.nit)
+      axios.get("buscarcliente/" + this.bclientes.nit)
         .then((response) => {
           //console.log(response.data)
 
@@ -704,9 +703,9 @@ export default {
         });
     },
     obtenerProductos() {
-      let url0 = "http://localhost:8000/api/products";
+     
       axios
-        .get(url0)
+        .get("products")
         .then((response) => {
           this.products = response.data;
           //console.log("EXITO")
