@@ -151,12 +151,12 @@ body{
     padding:0;
 }
 
-.container{
+/* .container{
     display: flex;
     justify-content: center;
     height: 100vh;
     align-items: center;
-}
+} */
 
 .card{
     border-radius: 1rem;

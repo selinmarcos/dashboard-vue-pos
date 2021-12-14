@@ -57,23 +57,34 @@ export default {
     async handleSubmit() {
       //ponemos el try catch in order to show the error message
       try {
+         console.log('entramos a login')
         const respons = await axios.post("login", {
+         
           email: this.email,
           pass: this.pass,
         });
 
         console.log("TOKEEEEEN GUARDADO:  " + respons.data.token);
+     
         localStorage.setItem("token", respons.data.token);
-
+      
         //nos conectamos a user para hacer la autenticacion (si no no aparece el user en el nav)
-        const response = await axios.get("user");
-        //enviamos todo user a vuex
+        // const response = await axios.get("user");
+        
+                       axios.get("user")
+                .then(response =>{
+                            //enviamos todo user a vuex
         this.$store.dispatch("user", response.data);
         //this.$store.state("user", true)
 
         //redireccionamos al dashboard
         // this.$router.push("/dashboard");
         this.$router.push({name:'Inicio'})
+                })
+                .catch((error)=>{
+                    console.log('FATAAL'+error)
+                })
+
       } catch (e) {
         console.log(e)
         this.error = "Usuario o Contraseña Incorrecto";

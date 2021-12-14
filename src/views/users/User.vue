@@ -187,12 +187,12 @@ import axios from 'axios'
       }
     },
     //mostrar datos 
-    created(){
-        axios.post("users").then(response =>{
-            this.users = response.data
+    // created(){
+    //     axios.post("users").then(response =>{
+    //         this.users = response.data
             
-        })
-    },
+    //     })
+    // },
     computed:{
         formTitle(){
             return  this.editedIndex === -1 ? 'NUEVO REGISTRO' : 'EDITAR REGISTRO'
@@ -216,7 +216,7 @@ import axios from 'axios'
         },
 
         confirmarBorrado(id){
-        axios.delete("users"+id)
+        axios.delete("users/"+id)
         .then(()=>{
             this.obtenerClientes()
             this.dialog = false

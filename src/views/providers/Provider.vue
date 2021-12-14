@@ -101,7 +101,7 @@
 </template>
 
 <script>
-let url = 'http://localhost:8000/api/providers/'
+//let url = 'http://localhost:8000/api/providers/'
 import axios from 'axios'
   export default {
     mounted(){ // check this function !
@@ -157,12 +157,12 @@ import axios from 'axios'
       }
     },
     //mostrar datos 
-    created(){
-        axios.post(url).then(response =>{
-            this.providers = response.data
+    // created(){
+    //     axios.post("providers").then(response =>{
+    //         this.providers = response.data
             
-        })
-    },
+    //     })
+    // },
     computed:{
         formTitle(){
             return  this.editedIndex === -1 ? 'NUEVO REGISTRO' : 'EDITAR REGISTRO'
@@ -176,7 +176,7 @@ import axios from 'axios'
     methods:{
         //mostrar datos otra vez por que no funciona con created cuando borras un registro.
         obtenerClientes(){
-                axios.get(url)
+                axios.get("providers")
                 .then(response =>{
                     this.providers= response.data
                 })
@@ -186,7 +186,7 @@ import axios from 'axios'
         },
 
         confirmarBorrado(id){
-        axios.delete(url+id)
+        axios.delete("providers/"+id)
         .then(()=>{
             this.obtenerClientes()
             this.dialog = false
@@ -202,7 +202,7 @@ import axios from 'axios'
                 let params = {provider:this.provider, contact:this.contact, phone:this.phone, direccion:this.direccion}
                 //console.log(provider)
                 //console.log(params)
-                axios.post(url, params)
+                axios.post("providers", params)
                 .then(() =>{                    
                     this.obtenerClientes()
                 })
@@ -214,7 +214,7 @@ import axios from 'axios'
         editarCliente (_id, provider, contact, phone, direccion) { 
                 let params = {provider, contact, phone, direccion}
                 console.log(params)
-                axios.put(url+_id, params)
+                axios.put("providers/"+_id, params)
 
                 .then(()=>{
                     console.log("llegue sin errores")
