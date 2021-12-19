@@ -1,4 +1,5 @@
 <template>
+<div class="principal">
     <div class="auth-wrapper">
         <div class="auth-inner">
             <form @submit.prevent="handleSubmit">
@@ -6,46 +7,47 @@
 
                 <div class="form-group">
                     <label>Full Name</label>
-                    <input v-model="name" type="text" class="form-control" placeholder="Full Name"/>
+                    <input required v-model="name" type="text" class="form-control" placeholder="Full Name"/>
                 </div>
                 
                 <div class="form-group">
                     <label>Email</label>
-                    <input v-model="email"  type="email" class="form-control" placeholder="Email"/>
+                    <input required v-model="email"  type="email" class="form-control" placeholder="Email"/>
                 </div>
 
                 
                 <div class="form-group">
                     <label>User</label>
-                    <input v-model="user"  type="text" class="form-control" placeholder="User"/>
+                    <input required v-model="user"  type="text" class="form-control" placeholder="User"/>
                 </div>
 
                 <div class="form-group">
                     <label>Phone</label>
-                    <input v-model="phone"  type="number" class="form-control" placeholder="Phone"/>
+                    <input required v-model="phone"  type="number" class="form-control" placeholder="Phone"/>
                 </div>
 
-                <div class="form-group">
+                <!-- <div class="form-group">
                     <label>Rol</label>
                     <input v-model="rol"  type="text" class="form-control" placeholder="Rol"/>
-                </div>
+                </div> -->
 
 
                 <div class="form-group">
                     <label>Password</label>
-                    <input v-model="pass"  type="password" class="form-control" placeholder="Password"/>
+                    <input required v-model="pass"  type="password" class="form-control" placeholder="Password"/>
                 </div>
 
                 <div class="form-group">
                     <label>Confirm Password</label>
-                    <input v-model="password_confirm"  type="password" class="form-control" placeholder="Confirm Password"/>
+                    <input required v-model="password_confirm"  type="password" class="form-control" placeholder="Confirm Password"/>
                 </div>
 
-                <button class="btn btn-prymary btn-block">Sign up </button>
+                <!-- <button class="btn btn-prymary btn-block">Sign up </button> -->
+                <v-btn class="btn-register" type="submit" color="primary" dark align-center> Sign up </v-btn>
             </form>
         </div>
     </div>
-    
+</div>    
 </template>
 
 <script>
@@ -73,7 +75,8 @@ export default {
                 user:this.user,
                 email:this.email,
                 phone:this.phone,
-                rol:this.rol,
+                // rol:this.rol,
+                rol:"ADMIN",
                 pass:this.pass,
                 password_confirm:this.password_confirm
             }
@@ -95,34 +98,47 @@ export default {
   
 
 </script>
-<style>
+<style scoped>
 @import url('https://fonts.googleapis.com/css?family=Fira+Sans:400,500,600,700,800');
 *{
   box-sizing: border-box;
 }
+.principal {
+  background:linear-gradient(to right, #89216B, #DA4453);
+  min-height: 100vh;
+  display: flex;
+  font-weight: 400;
+  font-family: "Fira Sans", sans-serif;
+  justify-content: center;
+  align-items: center;
+ 
+}
+
 .mainpage{
  margin-top: 34px;
 }
 .navbar-light{
   height: 90px;
 }
-body{
+
+/* body{
   background: #292841 !important;
   min-height: 100vh;
   display: flex;
   font-weight: 400;
   font-family: 'Fira Sans', sans-serif;
   
-}
+} */
 h1, h2, h3, h4, h5, h6, label, span{
   font-weight: 500;
   font-family: 'Fira Sans', sans-serif;
   text-align: center;
 }
 
-body, html, #app, #root, .auth-wraper{
+.auth-wraper{
   width: 100%;
   height: 100%;
+
 }
 
 #app{
@@ -142,10 +158,15 @@ body, html, #app, #root, .auth-wraper{
   margin-top: 10vh !important;
   margin: auto;
   background: #ffffff;
-  box-shadow: 0px 14px 80px rgba(34,35,58,0.2);
+  box-shadow: 0px 14px 80px rgba(34,35,58,0.2); 
   padding: 40px 55px 45px 55px;
   border-radius: 15px;
   transition: all  .3s;
+}
+@media (max-width:400px){
+  .auth-inner{
+    width: 350px;
+  }
 }
 .auth-wraper .form-control:focus{
   border-color: #167BFF;

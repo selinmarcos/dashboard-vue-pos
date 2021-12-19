@@ -64,7 +64,7 @@
         }
     }
 </script>
-<style >
+<style scoped>
 #icon{
   color: white;
 }
@@ -72,12 +72,12 @@
   font-weight: 500;
   font-family: 'Fira Sans', sans-serif;
 } */
-body{
+/* body{
  
   font-weight: 400;
   font-family: 'Fira Sans', sans-serif;
   
-}
+} */
 
 .navbar-dark{
  position: absolute;

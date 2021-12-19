@@ -1,5 +1,6 @@
 <template>
-  <div class="auth-wrapper">
+<div class="principal">
+    <div class="auth-wrapper">
     <div class="auth-inner">
       <form @submit.prevent="handleSubmit">
         <!-- mensaje de error -->
@@ -29,13 +30,16 @@
           />
         </div>
         <v-btn type="submit" color="primary" dark align-center> Login </v-btn>
-        <button class="btn btn-prymary btn-block">Login</button>
+        <!-- <button class="btn btn-prymary btn-block">Login</button> -->
         <p class="forgot-password text-right">
           <router-link to="forgot">Olvidate tu contraseña?</router-link>
         </p>
       </form>
     </div>
   </div>
+
+</div>
+
 </template>
 <script>
 import axios from "axios";
@@ -93,7 +97,7 @@ export default {
   },
 };
 </script>
-<style>
+<style scoped>
 @import url("https://fonts.googleapis.com/css?family=Fira+Sans:400,500,600,700,800");
 * {
   box-sizing: border-box;
@@ -104,30 +108,28 @@ export default {
 .navbar-light {
   height: 90px;
 }
-body {
-  background: #292841;
+.principal {
+  background:linear-gradient(to right, #89216B, #DA4453);;
   min-height: 100vh;
   display: flex;
   font-weight: 400;
   font-family: "Fira Sans", sans-serif;
+  justify-content: center;
+  align-items: center;
+ 
 }
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-label,
-span {
+
+h1, h2, h3, h4, h5, h6, label, span{
   font-weight: 500;
-  font-family: "Fira Sans", sans-serif;
+  font-family: 'Fira Sans', sans-serif;
   text-align: center;
 }
 
-body,
-html,
-#app,
-#root,
+
+
+
+
+
 .auth-wraper {
   width: 100%;
   height: 100%;
@@ -148,10 +150,15 @@ html,
   margin-top: 10vh !important;
   margin: auto;
   background: #ffffff;
-  box-shadow: 0px 14px 80px rgba(34, 35, 58, 0.2);
+  box-shadow: 0px 14px 80px rgba(34, 35, 58, 0.2); 
   padding: 40px 55px 45px 55px;
   border-radius: 15px;
   transition: all 0.3s;
+}
+@media (max-width:400px){
+  .auth-inner{
+    width: 350px;
+  }
 }
 .auth-wraper .form-control:focus {
   border-color: #167bff;
