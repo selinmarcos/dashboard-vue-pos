@@ -16,6 +16,7 @@
         :gradient="`to bottom, ${barColor}`"
         v-bind="props"
       />
+    
     </template>
 
     <v-divider class="mb-1" />
@@ -54,8 +55,9 @@
       <!-- Style cascading bug  -->
       <!-- https://github.com/vuetifyjs/vuetify/pull/8574 -->
       <div />
-
-      <template v-for="(item, i) in computedItems">
+      <!-- VALIDAMOS SI ES ADMIN O NO PARA MOSTROS CERTAIN CONTENT -->
+      <div v-if="$store.state.user.rol == 'ADMIN'">
+        <template v-for="(item, i) in computedItems">
         <base-item-group
           v-if="item.children"
           :key="`group-${i}`"
@@ -71,24 +73,36 @@
         />
       </template>
 
+      </div>
+      <div v-else>
+      <template v-for="(item, i) in computedItemsNoAdmins">
+        <base-item-group
+          v-if="item.children"
+          :key="`group-${i}`"
+          :item="item"
+        >
+          
+        </base-item-group>
+
+        <base-item
+          v-else
+          :key="`item-${i}`"
+          :item="item"
+        />
+      </template>
+
+      </div>
+ 
+
       <!-- Style cascading bug  -->
       <!-- https://github.com/vuetifyjs/vuetify/pull/8574 -->
       <div />
     </v-list>
-<!-- UPGRADE TO PRO -->
-    <!-- <template v-slot:append>
-      <base-item
-        :item="{
-          title: $t('upgrade'),
-          icon: 'mdi-package-up',
-          to: '/upgrade',
-        }"
-      />
-    </template> -->
   </v-navigation-drawer>
 </template>
 
 <script>
+
   // Utilities
   import {
     mapState,
@@ -96,7 +110,6 @@
 
   export default {
     name: 'DashboardCoreDrawer',
-
     props: {
       expandOnHover: {
         type: Boolean,
@@ -105,6 +118,39 @@
     },
 
     data: () => ({
+      itemsNoAdmins:[
+        {
+          icon: 'mdi-home',
+          title: 'INICIO',
+          to: '/dashboard',
+        },
+        {
+          icon: 'mdi-cube',
+          title: 'PRODUCTOS',
+          to: '/products',
+        },
+        {
+          icon: 'mdi-cash-multiple',
+          title: 'VENTAS',
+          to: '/sales',
+        },
+        {
+          icon: 'mdi-cash-multiple',
+          title: 'NUEVA VENTA',
+          to: '/new-sale',
+        },
+        {
+          icon: 'mdi-account-group-outline',
+          title: 'CLIENTES',
+          to: '/clients',
+        },
+        {
+          title: 'PROVEEDORES',
+          icon: 'mdi-office-building-marker',
+          to: '/providers',
+        },        
+
+      ],
       items: [
         {
           icon: 'mdi-home',
@@ -141,7 +187,7 @@
           title: 'REPORTES',
           to: '/reports',
         },
-                {
+        {
           icon: 'mdi-account-multiple',
           title: 'USUARIOS',
           to: '/users',
@@ -187,6 +233,12 @@
       computedItems () {
         return this.items.map(this.mapItem)
       },
+
+      computedItemsNoAdmins () {
+        return this.itemsNoAdmins.map(this.mapItem)
+      },
+
+
       profile () {
         return {
           avatar: true,

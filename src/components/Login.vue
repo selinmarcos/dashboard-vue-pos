@@ -109,7 +109,7 @@ export default {
   height: 90px;
 }
 .principal {
-  background:linear-gradient(to right, #89216B, #DA4453);;
+  background:linear-gradient(to right, #89216B, #DA4453);
   min-height: 100vh;
   display: flex;
   font-weight: 400;
