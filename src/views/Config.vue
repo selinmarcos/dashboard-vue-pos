@@ -89,12 +89,20 @@
                     />
                   </v-col>
 
-                  <v-col cols="12">
+                  <v-col cols="12" md="6">
                     <v-text-field
                     required
                       label="DIRECCIÓN"
                       class="purple-input"
                       v-model="business.address"
+                    />
+                  </v-col>
+                  <v-col cols="12" md="6">
+                    <v-text-field
+                    required
+                      label="WEB"
+                      class="purple-input"
+                      v-model="business.web"
                     />
                   </v-col>
 
@@ -229,12 +237,20 @@
                     />
                   </v-col>
 
-                  <v-col cols="12">
+                  <v-col cols="12" md="6">
                     <v-text-field
                     required
                       label="DIRECCIÓN"
                       class="purple-input"
                       v-model="business.address"
+                    />
+                  </v-col>
+                  <v-col cols="12" md="6">
+                    <v-text-field
+                    required
+                      label="WEB"
+                      class="purple-input"
+                      v-model="business.web"
                     />
                   </v-col>
 
@@ -325,25 +341,6 @@
             <p class="font-weight-light grey--text">
               Don't be scared of the truth because we need to restart the human foundation in truth And I love you like Kanye loves Kanye I love Rick Owens’ bed design but the back is...
             </p>
-
-
-
-            <v-btn 
-               
-              color="success"
-              rounded
-              class="mr-0"
-            >
-              create
-            </v-btn>
-                <v-btn 
-        
-              color="success"
-              rounded
-              class="mr-0"
-            >
-              render
-            </v-btn>
                 <v-btn 
          
               color="success"
@@ -383,7 +380,8 @@ import axios from "axios";
                 address: "",
                 city: "",
                 country: "",
-                iva: ""
+                iva: "",
+                web:""
             },
               //  business: null,
               //  business:[]
@@ -405,7 +403,7 @@ import axios from "axios";
        handleCompany(){
            console.log('HANDLE business RUNNING')
            console.log('ayudaaaa'+this.business.nit)
-            let params = {nit: this.business.nit, phone: this.business.phone, email:this.business.email, companyName:this.business.companyName, companyLegalName:this.business.companyLegalName, address:this.business.address, city:this.business.city, country:this.business.country,iva:this.business.iva}
+            let params = {nit: this.business.nit, phone: this.business.phone, email:this.business.email, companyName:this.business.companyName, companyLegalName:this.business.companyLegalName, address:this.business.address, city:this.business.city, country:this.business.country,iva:this.business.iva, web:this.business.web}
               axios.post("business", params)
               .then((respons) => {
                  //this.bclientes._id = respons.data._id;
@@ -433,6 +431,7 @@ import axios from "axios";
                   this.business.city = response.data[0].city
                   this.business.iva = response.data[0].iva
                   this.business.email = response.data[0].email
+                  this.business.web = response.data[0].web
                   this.business._id = response.data[0]._id
         
                 })
@@ -443,9 +442,9 @@ import axios from "axios";
         //EDIT
         
         updateBusiness(){
-          let url = 'http://localhost:8000/api/business/'
+          // let url = 'http://localhost:8000/api/business/'
           console.log('EJECUTANDO UPDATE')
-                let params = {nit: this.business.nit, phone: this.business.phone, email:this.business.email, companyName:this.business.companyName, companyLegalName:this.business.companyLegalName, address:this.business.address, city:this.business.city, country:this.business.country,iva:this.business.iva}
+                let params = {web:this.business.web,nit: this.business.nit, phone: this.business.phone, email:this.business.email, companyName:this.business.companyName, companyLegalName:this.business.companyLegalName, address:this.business.address, city:this.business.city, country:this.business.country,iva:this.business.iva}
                 console.log('enviamos esto:'+this.business.iva)
                 
                 axios.put("business/"+this.business._id, params)

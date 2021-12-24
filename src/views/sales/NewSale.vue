@@ -205,7 +205,9 @@ export default {
   //props: ["usuario"],
   mounted() {
     // check this function !
-    this.obtenerProductos();
+    this.obtenerProductos()
+
+    this.getBusinessName()
   },
   data() {
     return {
@@ -310,12 +312,34 @@ export default {
         //description DE LA TABLA
       ],
 
-      foo:0
+      foo:0,
+      business:[]
     };
   },
 
 
   methods: {
+    getBusinessName(){
+      axios.get("business")
+      .then(response =>{
+        console.log('GET BUSINESS'+ response.data[0].companyLegalName)
+        this.business.companyLegalName = response.data[0].companyLegalName
+        this.business.email = response.data[0].email
+        this.business.address = response.data[0].address
+        this.business.city = response.data[0].city
+        this.business.phone = response.data[0].phone
+        this.business.nit = response.data[0].nit
+        this.business.web = response.data[0].web
+      })
+      .catch((e)=>{
+        console.log('ERROR BUSINESS'+ e)
+      })
+    },
+    getCurrentDate(){
+      let date = new Date();
+      let output = String(date.getDate()).padStart(2, '0') + '/' + String(date.getMonth() + 1).padStart(2, '0') + '/' + date.getFullYear();
+      return output
+    },
 
 
     increment (item) {
@@ -337,18 +361,6 @@ export default {
       console.log('decrementing')
     }
     },
-    //Verificamos si hay stock con text field number
-  //   cantidadProducto(event,item){
-  //      event.preventDefault();   
-  //     // this.datosV = Object.assign({}, item);
-  //     // console.log('STOCK',this.datosV.stock0)
-  //     // console.log(this.datosV.cantidad)
-  // if(item.stock0 > item.cantidad){
-  //     console.log('presionado')
-
-  // }
-
-  //   },
     
     insertarCliente(){
       return new Promise((resolve, reject)=>{
@@ -510,26 +522,27 @@ export default {
         }
     },
     business: {
-        name: "Business Name",
-        address: "Albania, Tirane ish-Dogana, Durres 2001",
-        phone: "(+355) 069 11 11 111",
-        email: "email@example.com",
-        email_1: "info@example.al",
-        website: "www.example.al",
+        email_1: 'NIT: '+ this.business.nit.toString(),
+        name: this.business.companyLegalName,
+        address: this.business.address,
+        phone: this.business.phone.toString(),
+        email: this.business.email,
+        website: this.business.web,
     },
     contact: {
         label: "Invoice issued for:",
-        name: "Client Name",
-        address: "Albania, Tirane, Astir",
-        phone: "(+355) 069 22 22 222",
-        email: "client@website.al",
-        otherInfo: "www.website.al",
+        name: this.bclientes.nombre,
+        address: this.bclientes.direccion,
+        phone: this.bclientes.telefono.toString(),
+        // nit: this.bclientes.nit.toString()
+        // email: "client@website.al",
+        otherInfo: this.bclientes.nit.toString(),
     },
     invoice: {
         label: "Factura #: ",
         num: this.ventasFactura.noFactura,
-        invDate: "Payment Date: 01/01/2021 18:12",
-        invGenDate: "Invoice Date: 02/02/2021 10:17",
+        // invDate: "Payment Date: 01/01/2021 18:12",
+        invGenDate: "Fecha de Emision: "+this.getCurrentDate(),
         headerBorder: false,
         tableBodyBorder: false,
         header: ["#", "Description", "Price", "Quantity", "Total"],
@@ -560,7 +573,7 @@ export default {
             }
         },
         invDescLabel: "Invoice Note",
-        invDesc: "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary.",
+        invDesc: "Esta factura contribuye al desarrollo del país. el uso ilícito de esta será sancionado de acuerdo a ley. \n",
     },
     footer: {
         text: "The invoice is created on a computer and is valid without the signature and stamp.",
