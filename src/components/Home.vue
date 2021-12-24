@@ -11,9 +11,9 @@
                 </div>
             </nav> -->
             <div class="textos">
-                <h1>Sistema de Facturación WMB</h1>
+                <h1 style="font-weight:bold;">Sistema de Facturación WMB</h1>
                 <h2>Digitaliza tu negocio, administra tu inventario, genera facturas digitales.</h2>
-                <a target="_blank" href="https://api.whatsapp.com/send?phone=59170666327&text=Hola%20me%20gustar%C3%ADa%20que%20me%20expliquen%20mejor%20sobre%20el%20Sistema%20de%20Ventas%20y%20Facturaci%C3%B3n.">Contactar <i class="fab fa-whatsapp"></i></a>
+                <a style="letter-spacing: 2px; font-size: 17px;" target="_blank" href="https://api.whatsapp.com/send?phone=59170666327&text=Hola%20me%20gustar%C3%ADa%20que%20me%20expliquen%20mejor%20sobre%20el%20Sistema%20de%20Ventas%20y%20Facturaci%C3%B3n.">Contactar <i class="fab fa-whatsapp"></i></a>
             </div>
             <img src="./../assets/vector.png" alt="">
         </div>
@@ -32,7 +32,7 @@
                 <i class="fas fa-boxes fa-3x" aria-hidden="true"></i>
             </div>
             <div class="card-body">
-                <h3>Controle su Inventario</h3><br>
+                <h3 style="font-weight:bold;">Controle su Inventario</h3><br>
               <p>
                 Controle su inventario en tiempo real, que no le falten productos !
               </p>
@@ -43,7 +43,7 @@
                 <i class="fas fa-shopping-cart fa-3x" aria-hidden="true"></i>
             </div>
             <div class="card-body">
-                <h3>Punto de Venta</h3><br>
+                <h3 style="font-weight:bold;">Punto de Venta</h3><br>
               <p>
                 Realice sus ventas de manera rapida y eficaz.
               </p>
@@ -56,7 +56,7 @@
           
             </div>
             <div class="card-body">
-                <h3>Factura Digital</h3><br>
+                <h3 style="font-weight:bold;">Factura Digital</h3><br>
               <p>
                 Genere facturas en PDF automaticamente.
               </p>
@@ -67,7 +67,7 @@
                 <i class="fas fa-chart-line fa-3x" aria-hidden="true"></i>     
             </div>
             <div class="card-body">
-                <h3>Reportes</h3><br>
+                <h3 style="font-weight:bold;">Reportes</h3><br>
               <p>
                 Genere Reportes, analice sus ganancias vea como va creciendo su negocio.
               </p>
@@ -80,7 +80,7 @@
                 <i class="fas fa-mobile-alt fa-3x" aria-hidden="true"></i>    
               </div>
               <div class="card-body">
-                <h3>Adaptable a cualquier Dispositivo</h3><br>
+                <h3 style="font-weight:bold;">Adaptable a cualquier Dispositivo</h3><br>
                 <p>
                     Podrá acceder desde cualquier dispositivo Tablet, PC o Celular
                 </p>
@@ -92,7 +92,7 @@
                 <i class="fab fa-simplybuilt fa-3x" aria-hidden="true"></i>  
               </div>
               <div class="card-body">
-                <h3>Facil de utilizar</h3><br>
+                <h3 style="font-weight:bold;">Facil de utilizar</h3><br>
                 <p>
                     Simple e intuitivo, sin opciones innecesarias.
                 </p>
@@ -104,7 +104,7 @@
                 <i class="fas fa-question-circle fa-3x" aria-hidden="true"></i>      
               </div>
               <div class="card-body">
-                <h3>Soporte Permanente</h3><br>
+                <h3 style="font-weight:bold;">Soporte Permanente</h3><br>
                 <p>
                     Soporte técnico de bugs y asesoría.
                 </p>
@@ -116,7 +116,7 @@
                 <i class="fas fa-bell fa-3x" aria-hidden="true"></i>      
               </div>
               <div class="card-body">
-                <h3>Notificaciones</h3><br>
+                <h3 style="font-weight:bold;">Notificaciones</h3><br>
                 <p>
                     Si su stock se esta agotando no se preocupe, le llegara una notifiación.
                 </p>
@@ -558,7 +558,7 @@ clip-path: circle(0% at 0 0);
 
 @media (max-width:400px){
     footer{
-        top: 100em;
+        top: 103em;
     }
 
 }
@@ -724,8 +724,14 @@ clip-path: circle(0% at 0 0);
       width: 100%;
       flex-wrap: wrap;
       height: 100%;
+
   }
-  
+  /* EXTRAS MODIFICACIONES */
+  .card-plan{
+      font-size: 15px !important;
+      font-family: sans-serif !important;
+  }
+  /*</EXTRAS MODIFICACIONES> */
   .card{
      height: 500px;
      width: 32%;
@@ -744,6 +750,7 @@ clip-path: circle(0% at 0 0);
   .card-price{
       font-size: 3rem;
       text-align: center;
+      font-weight: bold;
   }
   
   h2>span{
@@ -751,7 +758,7 @@ clip-path: circle(0% at 0 0);
   }
   
   #card-3 .card-price{
-      font-size: 2rem;
+      font-size: 2rem !important;
   } 
   
   #card-1 .card-price{
@@ -780,7 +787,8 @@ clip-path: circle(0% at 0 0);
       background-color: transparent;
       border: 1px solid #bc1e4a;
       color:white;
-      font-size: 1rem;
+      font-size: 1.1rem;
+      letter-spacing: 2px;
       padding: 1rem;
       border-radius: 5px;
   }

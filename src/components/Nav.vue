@@ -1,7 +1,7 @@
 <template>
     <nav class="navbar navbar-dark bg-dark navbar-expand  fixed-top">
       <div class="container">
-        <router-link to="/" class="navbar-brand">SENKU</router-link>
+        <router-link to="/" class="navbar-brand">WMB</router-link>
         <div class="collapse navbar-collapse">
            <ul class="navbar-nav ml-auto" v-if="!user">
               <li class="nav-item">
@@ -16,7 +16,7 @@
             <ul v-if="user" class="navbar-nav ml-auto">
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                   <v-icon id="icon">mdi-account</v-icon> {{user.user}}
+                   <v-icon id="icon">mdi-account</v-icon> {{user.user}} | {{user.rol}}
               
                 </a>
                 <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
@@ -82,6 +82,8 @@
 .navbar-dark{
  position: absolute;
   height: 34px;
+  font-family: sans-serif;
+  font-size: 17px;
 }
 
 </style>

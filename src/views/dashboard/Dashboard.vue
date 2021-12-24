@@ -5,7 +5,70 @@
     tag="section"
   >
     <v-row>
+
+
       <v-col
+        cols="12"
+        sm="6"
+        lg="3"
+      >
+        <base-material-stats-card
+          color="deep-orange accent-2"
+          icon="mdi-cart"
+          title="VENTAS"
+          value="+245"
+          sub-icon="mdi-clock"
+          sub-text="Just Updated"
+        />
+      </v-col>
+
+      <v-col
+        cols="12"
+        sm="6"
+        lg="3"
+      >
+        <base-material-stats-card
+          color="yellow darken-2"
+          icon="mdi-cube"
+          title="PRODUCTOS"
+          value="75.521"
+          sub-icon="mdi-tag"
+          sub-text="Tracked from Google Analytics"
+        />
+      </v-col>
+
+      <v-col
+        cols="12"
+        sm="6"
+        lg="3"
+      >
+        <base-material-stats-card
+          color="brown lighten-1"
+          icon="mdi-office-building-marker-outline"
+          title="PROVEEDORES"
+          value="$ 34,245"
+          sub-icon="mdi-calendar"
+          sub-text="Last 24 Hours"
+        />
+      </v-col>
+
+      <v-col
+        cols="12"
+        sm="6"
+        lg="3"
+      >
+        <base-material-stats-card
+          color="teal lighten-3"
+          icon="mdi-account-group "
+          title="CLIENTES"
+          value="184"
+          sub-icon="mdi-alert"
+          sub-icon-color="red"
+          sub-text="Get More Space..."
+        />
+      </v-col>
+
+      <!-- <v-col
         cols="12"
         lg="4"
       >
@@ -71,7 +134,7 @@
             <span class="caption grey--text font-weight-light">updated 10 minutes ago</span>
           </template>
         </base-material-chart-card>
-      </v-col>
+      </v-col> -->
 
       <v-col
         cols="12"
@@ -147,7 +210,7 @@
         </base-material-chart-card>
       </v-col>
 
-      <v-col
+      <!-- <v-col
         cols="12"
         lg="4"
       >
@@ -212,70 +275,9 @@
             <span class="caption grey--text font-weight-light">campaign sent 26 minutes ago</span>
           </template>
         </base-material-chart-card>
-      </v-col>
+      </v-col> -->
 
-      <v-col
-        cols="12"
-        sm="6"
-        lg="3"
-      >
-        <base-material-stats-card
-          color="info"
-          icon="mdi-twitter"
-          title="CLIENTES"
-          value="+245"
-          sub-icon="mdi-clock"
-          sub-text="Just Updated"
-        />
-      </v-col>
-
-      <v-col
-        cols="12"
-        sm="6"
-        lg="3"
-      >
-        <base-material-stats-card
-          color="primary"
-          icon="mdi-poll"
-          title="PROVEEDORES"
-          value="75.521"
-          sub-icon="mdi-tag"
-          sub-text="Tracked from Google Analytics"
-        />
-      </v-col>
-
-      <v-col
-        cols="12"
-        sm="6"
-        lg="3"
-      >
-        <base-material-stats-card
-          color="success"
-          icon="mdi-store"
-          title="PRODUCTOS"
-          value="$ 34,245"
-          sub-icon="mdi-calendar"
-          sub-text="Last 24 Hours"
-        />
-      </v-col>
-
-      <v-col
-        cols="12"
-        sm="6"
-        lg="3"
-      >
-        <base-material-stats-card
-          color="orange"
-          icon="mdi-sofa"
-          title="VENTAS"
-          value="184"
-          sub-icon="mdi-alert"
-          sub-icon-color="red"
-          sub-text="Get More Space..."
-        />
-      </v-col>
-
-      <v-col
+      <!-- <v-col
         cols="12"
         md="6"
       >
@@ -387,7 +389,7 @@
             </v-tab-item>
           </v-tabs-items>
         </base-material-card>
-      </v-col>
+      </v-col> -->
     </v-row>
   </v-container>
 </template>
