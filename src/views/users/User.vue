@@ -1,45 +1,48 @@
 <template>
+    <v-container tag="section">
+        <v-row>
+            <v-col cols="12">
+                <base-material-card color="warning" class="px-5 py-3"  >
+                    <template v-slot:heading>
+                        <v-row>
+                            <v-col class="display-3 font-weight-light pa-0" color="#2A3B4D" cols="12" sm="6" md="4" >
+                                Lista de Usuarios<v-btn @click.stop="crear=true"  fab small color="error" class="ml-3"><v-icon>mdi-plus</v-icon></v-btn>
+                            </v-col>
+                            <v-col cols="12" sm="6" md="4" class="pa-0">
+                                
+                            </v-col>
 
-
-    <v-card>  
-        <h1>Lista de Usuarios</h1> 
-            <v-btn @click.stop="crear=true" fab dark color="#ff5252"><v-icon>mdi-plus</v-icon></v-btn> 
-        <v-card-title>  
-                
-                
-            <v-text-field
-                v-model="search"
-                append-icon="mdi-magnify"
-                label="Search"
-                single-line
-                hide-details
-            ></v-text-field>
-            
-        </v-card-title>
-
-        <v-data-table
-                :headers="headers"
-                :items="users"
-                :items-per-page="10"
-                class="elevation-1"
-                :search="search"
-            
-            >
-            <template v-slot:[`item.actions`]="{ item }">
-                <v-btn fab small color="light-blue" @click="editar(item)">
-                    <v-icon>mdi-pencil</v-icon>
-                </v-btn>
-                <v-btn @click.stop="dialog=true" @click="id=item._id" fab small color="blue-grey darken-4"><v-icon>mdi-delete</v-icon></v-btn>
-            </template>
-        </v-data-table>
-
-
-
-
-
+                            <v-col cols="12" sm="6" md="4" class="pa-0 ">
+                               <v-text-field 
+                                v-model="search"
+                                append-icon="mdi-magnify"
+                                label="Buscar"
+                                single-line
+                                hide-details
+                                class="pt-0"
+                                
+                            ></v-text-field>
+                            </v-col>
+                        </v-row>
+                    </template> 
+                    <v-data-table
+                                :headers="headers"
+                                :items="users"
+                                :items-per-page="10"
+                                class="elevation-1"
+                                :search="search"
+                            
+                            >
+                            <template v-slot:[`item.actions`]="{ item }">
+                                <v-btn fab small color="light-blue" @click="editar(item)">
+                                    <v-icon>mdi-pencil</v-icon>
+                                </v-btn>
+                                <v-btn @click.stop="dialog=true" @click="id=item._id" fab small color="blue-grey darken-4"><v-icon>mdi-delete</v-icon></v-btn>
+                            </template>
+                    </v-data-table>
 <!-- -------------------------------------<VENTANAS DE DIALOGO>----------------------------------         -->
                  <!-- ventana de dialogo para eliminar registro -->
-        <v-dialog v-model="dialog" max-width="350" >
+            <v-dialog v-model="dialog" max-width="350" >
             <v-card>
                 <v-card-title class="headline">Desea eliminar el registro ?</v-card-title>
                 <v-card-actions>
@@ -49,72 +52,73 @@
                 </v-card-actions>
             </v-card>
 
-        </v-dialog> 
+            </v-dialog> 
 
                <!-- ventana de dialogo para crear  -->
-    <v-row justify="center">
-        <v-dialog v-model="crear" max-width="600px" transition="dialog-top-transition">
+             <v-row justify="center">
+                <v-dialog v-model="crear" max-width="600px" transition="dialog-top-transition">
 
-            <v-card>
-                <v-card-title class="cyan withe-text">
-                    <!-- si es una alta o modificacion va cambiar el titulo formTitle  -->
-                    <span class="headline">{{formTitle}}</span> 
-                </v-card-title>
+                <v-card>
+                    <v-card-title class="cyan withe-text">
+                        <!-- si es una alta o modificacion va cambiar el titulo formTitle  -->
+                        <span class="headline">{{formTitle}}</span> 
+                    </v-card-title>
 
-                <v-card-text>
-                    <v-container>
-                        <v-row>
-                            <!-- <v-col cols="12" sm="6" md="4">
-                                <v-text-field v-model="clientes._id" label="ID" outlined required></v-text-field>
-                            </v-col> -->
-                            <v-col cols="12" sm="6" >
-                                <v-text-field  v-model="editado.name" label="NOMBRE" outlined required></v-text-field>
-                            </v-col>
-                         
-                          
-                            <v-col cols="12" sm="6" >
-                                <v-text-field  v-model="editado.user" label="USUARIO"   outlined required></v-text-field>
-                               
-                            </v-col>
-                            <v-col cols="12" sm="6" >
-                                 <v-text-field v-model="editado.email" label="EMAIL"  outlined required></v-text-field>
-                            </v-col>
+                    <v-card-text>
+                        <v-container>
+                            <v-row>
+                                <!-- <v-col cols="12" sm="6" md="4">
+                                    <v-text-field v-model="clientes._id" label="ID" outlined required></v-text-field>
+                                </v-col> -->
+                                <v-col cols="12" sm="6" >
+                                    <v-text-field  v-model="editado.name" label="NOMBRE" outlined required></v-text-field>
+                                </v-col>
+                            
+                            
+                                <v-col cols="12" sm="6" >
+                                    <v-text-field  v-model="editado.user" label="USUARIO"   outlined required></v-text-field>
+                                
+                                </v-col>
+                                <v-col cols="12" sm="6" >
+                                    <v-text-field v-model="editado.email" label="EMAIL"  outlined required></v-text-field>
+                                </v-col>
+                            
+                            
+                                <v-col cols="12" sm="6">
+                                    <v-text-field v-model="editado.phone" label="CELULAR" type="number" outlined required></v-text-field>
+                                </v-col>
+                            
+                            
+                                <v-col cols="12">
+                            
+                                    <v-select v-model="editado.rol" :items="items" label="ROL"  dense  outlined ></v-select>
+            
+                                </v-col>
+                            
+                            
+                                <v-col cols="12">
+                                    <v-text-field v-model="editado.pass" label="NUEVA CONTRASEÑA" type="password" outlined required></v-text-field>
+                                </v-col>
+                            </v-row>
+                            <v-card-actions>
+                                <v-spacer></v-spacer>
+                                <v-btn  @click="cancelar" color="blue-gray" class="ma-2 white--text">Cancelar</v-btn>
                         
-                        
-                            <v-col cols="12" sm="6">
-                                <v-text-field v-model="editado.phone" label="CELULAR" type="number" outlined required></v-text-field>
-                            </v-col>
-                        
-                        
-                            <v-col cols="12">
-                          
-                                <v-select v-model="editado.rol" :items="items" label="ROL"  dense  outlined ></v-select>
-         
-                            </v-col>
-                        
-                        
-                            <v-col cols="12">
-                                <v-text-field v-model="editado.pass" label="NUEVA CONTRASEÑA" type="password" outlined required></v-text-field>
-                            </v-col>
-                        </v-row>
-                        <v-card-actions>
-                            <v-spacer></v-spacer>
-                            <v-btn  @click="cancelar" color="blue-gray" class="ma-2 white--text">Cancelar</v-btn>
-                    
-                            <v-btn   @click="guardar" type="submit" color="teal accent-4" class="mr-4 white--text">Guardar</v-btn>
-                            <v-spacer></v-spacer>
-                        </v-card-actions>
-                    </v-container>
-                </v-card-text>
+                                <v-btn   @click="guardar" type="submit" color="teal accent-4" class="mr-4 white--text">Guardar</v-btn>
+                                <v-spacer></v-spacer>
+                            </v-card-actions>
+                        </v-container>
+                    </v-card-text>
 
- 
-            </v-card>
-
-        </v-dialog> 
-    </v-row>
-<!-- -------------------------------------</VENTANAS DE DIALOGO>------------------------------------ -->
-    </v-card>
     
+                </v-card>
+
+                </v-dialog>
+             </v-row> 
+                </base-material-card>
+            </v-col> 
+        </v-row>  
+    </v-container>               
 </template>
 
 <script>

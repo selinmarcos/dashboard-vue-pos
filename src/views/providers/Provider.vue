@@ -1,40 +1,45 @@
 <template>
+    <v-container tag="section">
+        <v-row>
+            <v-col cols="12">
+                <base-material-card color="warning" class="px-5 py-3"  >
+                    <template v-slot:heading>
+                        <v-row>
+                            <v-col class="display-3 font-weight-light pa-0" color="#2A3B4D" cols="12" sm="6" md="4" >
+                                Lista de Proveedores<v-btn @click.stop="crear=true"  fab small color="error" class="ml-3"><v-icon>mdi-plus</v-icon></v-btn>
+                            </v-col>
+                            <v-col cols="12" sm="6" md="4" class="pa-0">
+                                
+                            </v-col>
 
-
-    <v-card>  
-        <h1>Lista de Proveedores</h1> 
-            <v-btn @click.stop="crear=true" fab dark color="#ff5252"><v-icon>mdi-plus</v-icon></v-btn> 
-        <v-card-title>  
-                
-                
-            <v-text-field
-                v-model="search"
-                append-icon="mdi-magnify"
-                label="Search"
-                single-line
-                hide-details
-            ></v-text-field>
-            
-        </v-card-title>
-
-                <v-data-table
-            :headers="headers"
-            :items="providers"
-            :items-per-page="10"
-            class="elevation-1"
-            :search="search"
-        >
-          <template v-slot:[`item.actions`]="{ item }">
-              <v-btn fab small color="light-blue" @click="editar(item)">
-                  <v-icon>mdi-pencil</v-icon>
-              </v-btn>
-              <v-btn @click.stop="dialog=true" @click="id=item._id" fab small color="blue-grey darken-4"><v-icon>mdi-delete</v-icon></v-btn>
-          </template>
-        </v-data-table>
-
-   
-
-<!-- -------------------------------------<VENTANAS DE DIALOGO>----------------------------------         -->
+                            <v-col cols="12" sm="6" md="4" class="pa-0 ">
+                               <v-text-field 
+                                v-model="search"
+                                append-icon="mdi-magnify"
+                                label="Buscar"
+                                single-line
+                                hide-details
+                                class="pt-0"
+                                
+                            ></v-text-field>
+                            </v-col>
+                        </v-row>
+                    </template>
+                    <v-data-table
+                            :headers="headers"
+                            :items="providers"
+                            :items-per-page="10"
+                            class="elevation-1"
+                            :search="search"
+                        >
+                        <template v-slot:[`item.actions`]="{ item }">
+                            <v-btn fab small color="light-blue" @click="editar(item)">
+                                <v-icon>mdi-pencil</v-icon>
+                            </v-btn>
+                            <v-btn @click.stop="dialog=true" @click="id=item._id" fab small color="blue-grey darken-4"><v-icon>mdi-delete</v-icon></v-btn>
+                        </template>
+                    </v-data-table>
+                    <!-- -------------------------------------<VENTANAS DE DIALOGO>----------------------------------         -->
                  <!-- ventana de dialogo para eliminar registro -->
         <v-dialog v-model="dialog" max-width="350">
             <v-card>
@@ -95,8 +100,15 @@
             </v-card>
 
         </v-dialog> 
-<!-- -------------------------------------</VENTANAS DE DIALOGO>------------------------------------ -->
-    </v-card>
+
+                </base-material-card>
+
+            </v-col> 
+
+        </v-row>
+    </v-container>   
+
+
     
 </template>
 

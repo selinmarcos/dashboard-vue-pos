@@ -256,6 +256,12 @@
         }
       },
     },
+    //GETTING BUSINESS DATA FOR THE DRAWER (IN THE FUTURE CHANGE TU VUEX)
+    // async created(){
+
+    //      const response = await axios.get('business')
+    //       this.$store.dispatch('business', response.data)  
+    //  }
   }
 </script>
 

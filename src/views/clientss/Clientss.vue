@@ -188,7 +188,7 @@ import axios from 'axios'
         },
 
         confirmarBorrado(id){
-        axios.delete("clientes"+id)
+        axios.delete("clientes/"+id)
         .then(()=>{
             this.obtenerClientes()
             this.dialog = false

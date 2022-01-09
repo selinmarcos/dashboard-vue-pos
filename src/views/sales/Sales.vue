@@ -36,15 +36,15 @@
                 >
                 <template v-slot:[`item.actions`]="{ item }">
                     <v-btn  @click="id=item._id, generatePDF(item._id)"  fab small color="blue-grey darken-4"><v-icon>mdi-eye</v-icon></v-btn>
-                    <v-btn fab small color="light-blue" @click="editar(item)">
+                    <!-- <v-btn fab small color="light-blue" @click="editar(item)">
                         <v-icon>mdi-pencil</v-icon>
-                    </v-btn>
+                    </v-btn> -->
                     <v-btn @click.stop="dialog=true" @click="id=item._id" fab small color="red lighten-1"><v-icon>mdi-cancel</v-icon></v-btn>
                 </template>
                 </v-data-table>
         <!-- -------------------------------------<VENTANAS DE DIALOGO>----------------------------------         -->
                         <!-- ventana de dialogo para eliminar registro -->
-                <v-dialog v-model="dialog" max-width="350">
+                <!-- <v-dialog v-model="dialog" max-width="350">
                     <v-card>
                         <v-card-title class="headline">Desea eliminar el registro ?</v-card-title>
                         <v-card-actions>
@@ -54,47 +54,9 @@
                         </v-card-actions>
                     </v-card>
 
-                </v-dialog> 
+                </v-dialog>  -->
 
-                    <!-- ventana de dialogo para crear  -->
-                <v-dialog v-model="crear" max-width="500px">
-                    <template ></template>
-                    <v-card>
-                        <v-card-title class="cyan withe-text">
-                            <!-- si es una alta o modificacion va cambiar el titulo formTitle  -->
-                            <span class="headline">{{formTitle}}</span> 
-                        </v-card-title>
 
-                        <v-card-text>
-                            <v-container>
-                                <v-row>
-                                    <!-- <v-col cols="12" sm="6" md="4">
-                                        <v-text-field v-model="ventas._id" label="ID" outlined required></v-text-field>
-                                    </v-col> -->
-                                    <v-col cols="12" sm="6" md="4">
-                                        <v-text-field v-model="editado.noFactura" label="noFactura" outlined required></v-text-field>
-                                    </v-col>
-                                    <v-col cols="12" sm="6" md="4">
-                                        <v-text-field v-model="editado.fecha" label="fecha" type="number"  outlined required></v-text-field>
-                                    </v-col>
-                                    <v-col cols="12" sm="6" md="4">
-                                        <v-text-field v-model="editado.idClient" label="PHONE" type="number"  outlined required></v-text-field>
-                                    </v-col>
-                                    <v-col cols="12" sm="6" md="4">
-                                        <v-text-field v-model="editado.idUser" label="idUser" outlined required></v-text-field>
-                                    </v-col>
-                                </v-row>
-                            </v-container>
-                        </v-card-text>
-                        
-                        <v-card-actions>
-                            <v-btn @click="cancelar" color="blue-gray" class="ma-2 white--text">Cancelar</v-btn>
-                            <v-btn @click="guardar" type="submit" color="teal accent-4" class="mr-4 white--text">Guardar</v-btn>
-                        </v-card-actions>
-                        
-                    </v-card>
-
-                </v-dialog> 
 <!-- -------------------------------------</VENTANAS DE DIALOGO>------------------------------------ -->
                 </base-material-card>
             </v-col>
@@ -108,6 +70,7 @@ import axios from 'axios'
   export default {
     mounted(){ // check this function !
             this.obtenerClientes()
+            this.getBusinessName()
         },  
     data () {
       return {
@@ -126,7 +89,7 @@ import axios from 'axios'
         headers: [
           {
             text: 'ID',
-            align: 'start',
+            align: ' d-none',
             sortable: false,
             value: '_id',
             class:'teal darken-1 white--text'
@@ -162,7 +125,8 @@ import axios from 'axios'
             idUser:'',
             estado:'',
             totalFactura:''
-        }
+        },
+        business:[]
       }
     },
     //mostrar datos 
@@ -183,11 +147,29 @@ import axios from 'axios'
         }
     },
     methods:{
+        //GET DATA FOR THE INVOICE - BUSINESS
+    getBusinessName(){
+      axios.get("business")
+      .then(response =>{
+        console.log('GET BUSINESS'+ response.data[0].companyLegalName)
+        this.business.companyLegalName = response.data[0].companyLegalName
+        this.business.email = response.data[0].email
+        this.business.address = response.data[0].address
+        this.business.city = response.data[0].city
+        this.business.phone = response.data[0].phone
+        this.business.nit = response.data[0].nit
+        this.business.web = response.data[0].web
+      })
+      .catch((e)=>{
+        console.log('ERROR BUSINESS'+ e)
+      })
+    },
+
         //INVOICE PDF
          generatePDF(id){
              console.log('INVOICE',id)
        
-             axios.get("dventas" + id)
+             axios.get("dventas/" + id)
         .then((response) => {
            
              this.registerVenta= response.data
@@ -199,7 +181,7 @@ import axios from 'axios'
           
              console.log('ARRAY',this.registerVenta)
 
-             var props = {
+        var props = {
     outputType: jsPDFInvoiceTemplate.OutputType.DataUrlNewWindow,
     returnJsPDFDocObject: true,
     fileName: "Invoice 2021",
@@ -214,7 +196,7 @@ import axios from 'axios'
         }
     },
     business: {
-        name: "Business Name",
+        name: this.business.companyLegalName,
         address: "Albania, Tirane ish-Dogana, Durres 2001",
         phone: "(+355) 069 11 11 111",
         email: "email@example.com",
@@ -264,7 +246,7 @@ import axios from 'axios'
             }
         },
         invDescLabel: "Invoice Note",
-        invDesc: "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary.",
+        invDesc: "Esta factura contribuye al desarrollo del país. el uso ilícito de esta será sancionado de acuerdo a ley. \n",
     },
     footer: {
         text: "The invoice is created on a computer and is valid without the signature and stamp.",
