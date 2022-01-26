@@ -75,14 +75,22 @@ export default {
         //nos conectamos a user para hacer la autenticacion (si no no aparece el user en el nav)
         // const response = await axios.get("user");
         
-                       axios.get("user")
-                .then(response =>{
-                            //enviamos todo user a vuex
+        axios.get("user")
+        .then(response =>{
+        //enviamos todo user a vuex
         this.$store.dispatch("user", response.data);
-        //this.$store.state("user", true)
+
+      //CARGAMOS business porque si no lo hacemos no cargara
+        axios.get('business')
+        .then(responsee =>{
+          this.$store.dispatch('business', responsee.data[0]) 
+        })
+         .catch((error)=>{
+          console.log('FATAAL'+error)
+        })
+        
 
         //redireccionamos al dashboard
-        // this.$router.push("/dashboard");
         this.$router.push({name:'Inicio'})
                 })
                 .catch((error)=>{

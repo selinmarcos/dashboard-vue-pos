@@ -148,8 +148,8 @@ import axios from 'axios'
             class:'grey darken-3 white--text'
           },
           { text: 'PRODUCTO', value: 'description' , sortable: false, class:'grey darken-3 white--text'},
-          { text: 'STOCK', value: 'stock' , sortable: false, class:'grey darken-3 white--text'},
-          { text: 'PRECIO', value: 'price' , sortable: false, class:'grey darken-3 white--text' },
+          { text: 'STOCK', value: 'stock' , sortable: true, class:'grey darken-3 white--text'},
+          { text: 'PRECIO', value: 'price' , sortable: true, class:'grey darken-3 white--text' },
           { text: 'PROVEEDOR', value: 'idProvider' , sortable: false, class:'grey darken-3 white--text'},
           { text: 'ACCIONES', value: 'actions', sortable: false, class:'grey darken-3 white--text'},
 

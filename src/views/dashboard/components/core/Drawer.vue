@@ -28,19 +28,19 @@
       <v-list-item class="mt-4 mb-1">
         <v-list-item-avatar
           class="align-self-center"
-          color="white"
+         
           contain
         >
           <v-img
-            src="https://demos.creative-tim.com/vuetify-material-dashboard/favicon.ico"
-            max-height="30"
+            src="https://webmasterbolivia.com/wp-content/uploads/2021/06/cropped-web-master-bolivia-logo.png"
+            max-height="40"
           />
         </v-list-item-avatar>
 
         <v-list-item-content>
           <v-list-item-title
             class="display-1"
-            v-text="profile.title"
+            v-text="$store.state.business.companyName"
           />
         </v-list-item-content>
       </v-list-item>
@@ -107,6 +107,7 @@
   import {
     mapState,
   } from 'vuex'
+  //import {mapGetters} from 'vuex'
 
   export default {
     name: 'DashboardCoreDrawer',
@@ -185,7 +186,7 @@
         {
           icon: 'mdi-chart-box',
           title: 'REPORTES',
-          to: '/reports',
+          to: '/dashboard',
         },
         {
           icon: 'mdi-account-multiple',
@@ -197,26 +198,6 @@
           title: 'CONFIGURACIÓN',
           to: '/settings',
         }
-        // {
-        //   icon: 'mdi-account',
-        //   title: 'user',
-        //   to: '/pages/user',
-        // },
-        //  {
-        //   title: 'icons',
-        //   icon: 'mdi-chart-bubble',
-        //   to: '/components/icons',
-        // },
-        // {
-        //   title: 'google',
-        //   icon: 'mdi-map-marker',
-        //   to: '/maps/google-maps',
-        // },
-        // {
-        //   title: 'notifications',
-        //   icon: 'mdi-bell',
-        //   to: '/components/notifications',
-        // },
       ],
     }),
 
@@ -245,6 +226,8 @@
           title: this.$t('avatar'),
         }
       },
+
+      // ...mapGetters(['business'])
     },
 
     methods: {
@@ -257,11 +240,7 @@
       },
     },
     //GETTING BUSINESS DATA FOR THE DRAWER (IN THE FUTURE CHANGE TU VUEX)
-    // async created(){
 
-    //      const response = await axios.get('business')
-    //       this.$store.dispatch('business', response.data)  
-    //  }
   }
 </script>
 

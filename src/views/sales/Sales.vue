@@ -8,6 +8,10 @@
                             <v-col class="display-3 font-weight-light pa-0" color="#2A3B4D" cols="12" sm="6" md="4" >
                                 Ventas
                                 <!-- <v-btn @click.stop="crear=true"  fab small color="error" class="ml-3"><v-icon>mdi-plus</v-icon></v-btn> -->
+                                                               <v-text-field
+                                type="date"
+                                >
+                                </v-text-field>
                             </v-col>
                             <v-col cols="12" sm="6" md="4" class="pa-0">
                                 

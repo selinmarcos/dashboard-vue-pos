@@ -16,7 +16,7 @@
           color="deep-orange accent-2"
           icon="mdi-cart"
           title="VENTAS"
-          value="+245"
+          :value="this.rventas"
           sub-icon="mdi-clock"
           sub-text="Just Updated"
         />
@@ -31,7 +31,7 @@
           color="yellow darken-2"
           icon="mdi-cube"
           title="PRODUCTOS"
-          value="75.521"
+          :value="this.rproducts"
           sub-icon="mdi-tag"
           sub-text="Tracked from Google Analytics"
         />
@@ -46,7 +46,7 @@
           color="brown lighten-1"
           icon="mdi-office-building-marker-outline"
           title="PROVEEDORES"
-          value="$ 34,245"
+          :value="this.rprovider"
           sub-icon="mdi-calendar"
           sub-text="Last 24 Hours"
         />
@@ -61,7 +61,7 @@
           color="teal lighten-3"
           icon="mdi-account-group "
           title="CLIENTES"
-          value="184"
+          :value="this.rclients"
           sub-icon="mdi-alert"
           sub-icon-color="red"
           sub-text="Get More Space..."
@@ -395,11 +395,21 @@
 </template>
 
 <script>
+import axios from "axios";
   export default {
     name: 'DashboardDashboard',
-
+     created(){
+       this.getVentas()
+       this.getProducts()
+       this.getProviders()
+       this.getClients()
+     },
     data () {
       return {
+        rproducts: null,
+        rventas: null,
+        rprovider:null,
+        rclients:null,
         dailySalesChart: {
           data: {
             labels: ['M', 'T', 'W', 'T', 'F', 'S', 'S'],
@@ -598,6 +608,28 @@
       complete (index) {
         this.list[index] = !this.list[index]
       },
+
+      //ventas
+      async getVentas(){
+          const response = await axios.get('ventas')        
+             this.rventas = response.data.length
+      },
+      //products
+      async getProducts(){
+          const response = await axios.get('products')     
+             this.rproducts = response.data.length
+      },
+            //products
+      async getProviders(){
+          const response = await axios.get('providers')     
+             this.rprovider = response.data.length
+      },
+      async getClients(){
+          const response = await axios.get('clientes')     
+             this.rclients = response.data.length
+      }
+
+
     },
   }
 </script>

@@ -337,8 +337,8 @@ export default {
     },
     getCurrentDate(){
       let date = new Date();
-      let output = String(date.getDate()).padStart(2, '0') + '/' + String(date.getMonth() + 1).padStart(2, '0') + '/' + date.getFullYear();
-      return output
+      let output = String(date.getDate()).padStart(2, '0') + '-' + String(date.getMonth() + 1).padStart(2, '0') + '-' + date.getFullYear()+' '+date.getHours() + ":" + date.getMinutes() ;
+      return output 
     },
 
 
@@ -421,7 +421,7 @@ export default {
       return new Promise((resolve, reject)=>{
         
         console.log(this.user._id)
-        let param = {idClient:this.bclientes._id, idUser:this.user._id, fecha: new Date(), estado:'PAGADO', totalFactura: this.sumField("priceT") }
+        let param = {idClient:this.bclientes._id, idUser:this.user._id, fecha: this.getCurrentDate(), estado:'PAGADO', totalFactura: this.sumField("priceT") }
         console.log('ENTRAMOS')
         axios.post("ventas", param)
         .then((response) =>{                    

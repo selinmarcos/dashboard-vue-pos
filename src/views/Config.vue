@@ -409,6 +409,14 @@ import axios from "axios";
                  //this.bclientes._id = respons.data._id;
                  console.log('METODO CREAR'+respons.data)
                  this.getBusiness()
+                      //para que se actualice companyName en el drawer
+                      axios.get('business')
+                      .then(responsee =>{
+                        this.$store.dispatch('business', responsee.data[0]) 
+                      })
+                      .catch((error)=>{
+                        console.log('FATAAL'+error)
+                      })
                 
               })
               .catch((error)=>{
@@ -450,7 +458,16 @@ import axios from "axios";
                 axios.put("business/"+this.business._id, params)
                 .then(()=>{
                     console.log('editado con exito')
-                })
+
+                      //para que se actualice companyName en el drawer
+                      axios.get('business')
+                        .then(responsee =>{
+                          this.$store.dispatch('business', responsee.data[0]) 
+                        })
+                        .catch((error)=>{
+                          console.log('FATAAL'+error)
+                        })
+                    })
                 .catch((error)=>{
                     console.log(error)
                 })

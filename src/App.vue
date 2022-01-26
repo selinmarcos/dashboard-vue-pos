@@ -20,10 +20,21 @@
 
 //Hacemos la autenticacion cuando carga el componente principal Muy Importante !
      async created(){
+       //getting 'user' for vuex
 
          const response = await axios.get('user')
           this.$store.dispatch('user', response.data)  
+
+        //getting 'business' for vuex
+          const responsee = await axios.get('business')
+          this.$store.dispatch('business', responsee.data[0]) 
+ 
      }
+
+       
+
+   
+     
   }
 </script>
  <style>
